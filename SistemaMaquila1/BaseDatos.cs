@@ -1,15 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SQLite;
+using System.IO;
+using System.Security.Cryptography.Xml;
+using System.Windows.Forms;
+using SistemaMaquila1;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SistemaMaquila1
 {
-    internal class BaseDatos
+    public static class BaseDatos
     {
-        string[] tablas = new string[]
+        private static string dbRuta = "maquila.db";
+        private static string connectionString = $"Data Source={dbRuta};Version=3;";
+
+        public static void Inicializar()
+        {
+            if (!File.Exists(dbRuta))
+            {
+                SQLiteConnection.CreateFile(dbRuta);
+            }
+
+            using (var conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string[] tablas = new string[]
 {
+    //USUARIOS
+    @"CREATE TABLE IF NOT EXISTS TUsuarios (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        NombreUsuario TEXT,
+        Contrasena TEXT,
+        Rol TEXT
+    )",
     // CLIENTES 
     @"CREATE TABLE IF NOT EXISTS TClientes (
         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -47,7 +70,6 @@ namespace SistemaMaquila1
         Talla TEXT,
         Descripcion TEXT
     )",
-
     // PEDIDOS 
     @"CREATE TABLE IF NOT EXISTS TPedidos (
         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -84,5 +106,101 @@ namespace SistemaMaquila1
     )",
 
 };
+                foreach (var sql in tablas)
+                {
+                    using (var cmd = new SQLiteCommand(sql, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                InsertarUsuarioPorDefecto();
+            }
+        }
+        public static SQLiteConnection AbrirConexion()
+        {
+            var conn = new SQLiteConnection(connectionString);
+            conn.Open();
+            return conn;
+        }
+        public static void InsertarUsuario(Usuario usuario)
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = "INSERT INTO TUsuarios (NombreUsuario, Contrasena, Rol) VALUES (@nombre, @contrasena, @rol)";
+                cmd.Parameters.AddWithValue("@nombre", usuario.NombreUsuario);
+                cmd.Parameters.AddWithValue("@contrasena", usuario.Contrasena);
+                cmd.Parameters.AddWithValue("@rol", usuario.Rol);
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public static bool ValidarUsuario(string nombreUsuario, string contrasena)
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"SELECT COUNT(*) 
+                            FROM TUsuarios 
+                            WHERE NombreUsuario = @nombre 
+                            AND Contrasena = @contrasena";
+
+                cmd.Parameters.AddWithValue("@nombre", nombreUsuario);
+                cmd.Parameters.AddWithValue("@contrasena", contrasena);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+        }
+        public static bool ExistenUsuarios()
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = "SELECT COUNT(*) FROM TUsuarios";
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+        }
+        public static void InsertarUsuarioPorDefecto()
+        {
+            if (!ExistenUsuarios())
+            {
+                InsertarUsuario(new Usuario("admin", "1234", "Administrador"));
+            }
+        }
+        public static void InsertarCliente(Cliente cliente)
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = "INSERT INTO TClientes (Nombre, Telefono, Correo) VALUES (@Nombre, @Telefono, @Correo)";
+                cmd.Parameters.AddWithValue("@Nombre", cliente.Nombre);
+                cmd.Parameters.AddWithValue("@Telefono", cliente.Telefono);
+                cmd.Parameters.AddWithValue("@Correo", cliente.Correo);
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public static List<Cliente> ObtenerClientes()
+        {
+            var lista = new List<Cliente>();
+            using (var conn = AbrirConexion())
+            using (var cmd = new SQLiteCommand("SELECT * FROM TClientes", conn))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new Cliente
+                    {
+                        ID = Convert.ToInt32(reader["Id"]),
+                        Nombre = reader["Nombre"].ToString(),
+                        Telefono = reader["Telefono"].ToString(),
+                        Correo = reader["Correo"].ToString()
+                    });
+                }
+            }
+            return lista;
+        }
+
     }
 }
+

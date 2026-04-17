@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaMaquila1;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,11 +45,18 @@ namespace SistemaDeImportadora
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            //ingresar
-            if (textBox9.Text == "admin" && textBox1.Text == "2026")
-                //
+            string usuario = textBox9.Text;
+            string contrasena = textBox1.Text;
+
+            if (BaseDatos.ValidarUsuario(usuario, contrasena))
             {
+                MessageBox.Show("Inicio de sesión correcto");
+
                 this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Usuario o contraseña incorrectos");
             }
         }
 
