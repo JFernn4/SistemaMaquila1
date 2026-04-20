@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel1 = new Panel();
+            panel2 = new Panel();
             button11 = new Button();
             SidePanel = new Panel();
             button4 = new Button();
@@ -38,7 +39,6 @@
             button1 = new Button();
             button10 = new Button();
             configuracion1 = new Configuracion();
-            panel2 = new Panel();
             inicioSesion1 = new SistemaDeImportadora.InicioSesion();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -46,6 +46,7 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.HotTrack;
+            panel1.Controls.Add(panel2);
             panel1.Controls.Add(button11);
             panel1.Controls.Add(SidePanel);
             panel1.Controls.Add(button4);
@@ -59,6 +60,15 @@
             panel1.TabIndex = 5;
             panel1.Paint += panel1_Paint;
             // 
+            // panel2
+            // 
+            panel2.BackgroundImage = (Image)resources.GetObject("panel2.BackgroundImage");
+            panel2.BackgroundImageLayout = ImageLayout.Stretch;
+            panel2.Location = new Point(12, 23);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(150, 133);
+            panel2.TabIndex = 9;
+            // 
             // button11
             // 
             button11.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
@@ -69,7 +79,7 @@
             button11.Image = (Image)resources.GetObject("button11.Image");
             button11.ImageAlign = ContentAlignment.MiddleLeft;
             button11.ImeMode = ImeMode.NoControl;
-            button11.Location = new Point(12, 313);
+            button11.Location = new Point(12, 382);
             button11.Name = "button11";
             button11.Size = new Size(176, 52);
             button11.TabIndex = 8;
@@ -80,7 +90,7 @@
             // SidePanel
             // 
             SidePanel.BackColor = SystemColors.Info;
-            SidePanel.Location = new Point(0, 94);
+            SidePanel.Location = new Point(0, 163);
             SidePanel.Name = "SidePanel";
             SidePanel.Size = new Size(8, 54);
             SidePanel.TabIndex = 3;
@@ -96,11 +106,11 @@
             button4.Image = (Image)resources.GetObject("button4.Image");
             button4.ImageAlign = ContentAlignment.MiddleLeft;
             button4.ImeMode = ImeMode.NoControl;
-            button4.Location = new Point(12, 258);
+            button4.Location = new Point(12, 327);
             button4.Name = "button4";
             button4.Size = new Size(176, 52);
             button4.TabIndex = 6;
-            button4.Text = "  Vehículos";
+            button4.Text = "  Reportes";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
@@ -114,7 +124,7 @@
             button3.Image = (Image)resources.GetObject("button3.Image");
             button3.ImageAlign = ContentAlignment.MiddleLeft;
             button3.ImeMode = ImeMode.NoControl;
-            button3.Location = new Point(12, 203);
+            button3.Location = new Point(12, 272);
             button3.Name = "button3";
             button3.Size = new Size(176, 52);
             button3.TabIndex = 5;
@@ -132,11 +142,11 @@
             button2.Image = (Image)resources.GetObject("button2.Image");
             button2.ImageAlign = ContentAlignment.MiddleLeft;
             button2.ImeMode = ImeMode.NoControl;
-            button2.Location = new Point(12, 148);
+            button2.Location = new Point(12, 217);
             button2.Name = "button2";
             button2.Size = new Size(176, 52);
             button2.TabIndex = 4;
-            button2.Text = "  Pedidos";
+            button2.Text = "  Inventario";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -150,7 +160,7 @@
             button1.Image = (Image)resources.GetObject("button1.Image");
             button1.ImageAlign = ContentAlignment.MiddleLeft;
             button1.ImeMode = ImeMode.NoControl;
-            button1.Location = new Point(12, 93);
+            button1.Location = new Point(12, 162);
             button1.Name = "button1";
             button1.Size = new Size(176, 52);
             button1.TabIndex = 3;
@@ -183,13 +193,6 @@
             configuracion1.Size = new Size(748, 264);
             configuracion1.TabIndex = 18;
             // 
-            // panel2
-            // 
-            panel2.Location = new Point(222, 138);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(758, 361);
-            panel2.TabIndex = 19;
-            // 
             // inicioSesion1
             // 
             inicioSesion1.AutoSize = true;
@@ -205,7 +208,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1043, 542);
             Controls.Add(inicioSesion1);
-            Controls.Add(panel2);
             Controls.Add(button10);
             Controls.Add(panel1);
             Controls.Add(configuracion1);
@@ -230,7 +232,7 @@
         private Button button1;
         private Button button10;
         private Configuracion configuracion1;
-        private Panel panel2;
         private SistemaDeImportadora.InicioSesion inicioSesion1;
+        private Panel panel2;
     }
 }

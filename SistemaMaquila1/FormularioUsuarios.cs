@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SistemaMaquila1.Objetos;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SistemaMaquila1
 {
@@ -28,7 +30,7 @@ namespace SistemaMaquila1
         {
             try
             {
-                if (string.IsNullOrEmpty(textBox1.Text) ||  string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox2.Text))
+                if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(comboBox2.Text) || string.IsNullOrEmpty(textBox2.Text))
                 {
                     MessageBox.Show("Complete todos los datos");
                     return;
@@ -61,7 +63,7 @@ namespace SistemaMaquila1
         {
             string nombreUsuario = textBox2.Text;
             string contrasena = textBox1.Text;
-            string rol = textBox3.Text;
+            string rol = comboBox2.Text;
             Usuario usuario = new Usuario(nombreUsuario, contrasena, rol);
 
             gestionUsuarios.GuardarUsuario(usuario);
@@ -70,13 +72,18 @@ namespace SistemaMaquila1
         {
             textBox2.Text = "";
             textBox1.Text = "";
-            textBox3.Text = "";
+            comboBox2.Text = "";
         }
         private void Limpiar()
         {
             textBox2.Text = "";
             textBox1.Text = "";
-            textBox3.Text = "";
+            comboBox2.Text = "";
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

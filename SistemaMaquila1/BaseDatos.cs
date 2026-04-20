@@ -3,7 +3,7 @@ using System.Data.SQLite;
 using System.IO;
 using System.Security.Cryptography.Xml;
 using System.Windows.Forms;
-using SistemaMaquila1;
+using SistemaMaquila1.Objetos;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -122,6 +122,7 @@ namespace SistemaMaquila1
             conn.Open();
             return conn;
         }
+        //USUARIOS
         public static void InsertarUsuario(Usuario usuario)
         {
             using (var conn = AbrirConexion())
@@ -168,6 +169,7 @@ namespace SistemaMaquila1
                 InsertarUsuario(new Usuario("admin", "1234", "Administrador"));
             }
         }
+        //CLIENTES
         public static void InsertarCliente(Cliente cliente)
         {
             using (var conn = AbrirConexion())
@@ -183,24 +185,62 @@ namespace SistemaMaquila1
         public static List<Cliente> ObtenerClientes()
         {
             var lista = new List<Cliente>();
+
             using (var conn = AbrirConexion())
             using (var cmd = new SQLiteCommand("SELECT * FROM TClientes", conn))
             using (var reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    lista.Add(new Cliente
-                    {
-                        ID = Convert.ToInt32(reader["Id"]),
-                        Nombre = reader["Nombre"].ToString(),
-                        Telefono = reader["Telefono"].ToString(),
-                        Correo = reader["Correo"].ToString()
-                    });
+                    lista.Add(new Cliente(
+                        Convert.ToInt32(reader["Id"]),
+                        reader["Nombre"].ToString(),
+                        reader["Telefono"].ToString(),
+                        reader["Correo"].ToString()
+                    ));
                 }
             }
+
             return lista;
         }
+        //EMPLEADOS
+        public static void InsertarEmpleado(Empleado empleado)
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"INSERT INTO TEmpleados 
+                            (Nombre, Telefono, Cargo, Correo, Salario) 
+                            VALUES (@Nombre, @Telefono, @Cargo, @Correo, @Salario)";
 
+                cmd.Parameters.AddWithValue("@Nombre", empleado.Nombre);
+                cmd.Parameters.AddWithValue("@Telefono", empleado.Telefono);
+                cmd.Parameters.AddWithValue("@Cargo", empleado.Cargo);
+                cmd.Parameters.AddWithValue("@Correo", empleado.Correo);
+                cmd.Parameters.AddWithValue("@Salario", empleado.Salario);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+        //MATERIALES    
+        public static void InsertarMaterial(Material material)
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"INSERT INTO TMateriales 
+                            (Nombre, Tipo, Color, UnidadMedida, CantidadDisponible, StockMinimo, CostoUnitario) 
+                            VALUES (@Nombre, @Tipo, @Color, @UnidadMedida, @CantidadDisponible, @StockMinimo, @CostoUnitario)";
+                cmd.Parameters.AddWithValue("@Nombre", material.Nombre);
+                cmd.Parameters.AddWithValue("@Tipo", material.Tipo);
+                cmd.Parameters.AddWithValue("@Color", material.Color);
+                cmd.Parameters.AddWithValue("@UnidadMedida", material.UnidadMedida);
+                cmd.Parameters.AddWithValue("@CantidadDisponible", material.CantidadDisponible);
+                cmd.Parameters.AddWithValue("@StockMinimo", material.StockMinimo);
+                cmd.Parameters.AddWithValue("@CostoUnitario", material.CostoUnitario);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
 

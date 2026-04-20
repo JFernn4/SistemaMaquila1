@@ -37,10 +37,10 @@
             textBox1 = new TextBox();
             label3 = new Label();
             label4 = new Label();
-            textBox3 = new TextBox();
             btnLimpiar = new Button();
             button1 = new Button();
             button2 = new Button();
+            comboBox2 = new ComboBox();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -144,16 +144,6 @@
             label4.Text = "Rol:";
             label4.Click += label4_Click;
             // 
-            // textBox3
-            // 
-            textBox3.BorderStyle = BorderStyle.FixedSingle;
-            textBox3.Cursor = Cursors.IBeam;
-            textBox3.Font = new Font("Century Gothic", 12F);
-            textBox3.Location = new Point(500, 153);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(179, 27);
-            textBox3.TabIndex = 124;
-            // 
             // btnLimpiar
             // 
             btnLimpiar.BackColor = SystemColors.HotTrack;
@@ -198,15 +188,27 @@
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
+            // comboBox2
+            // 
+            comboBox2.Font = new Font("Century Gothic", 12F);
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "Administrador", "Usuario Regular" });
+            comboBox2.Location = new Point(500, 153);
+            comboBox2.Margin = new Padding(3, 2, 3, 2);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(177, 29);
+            comboBox2.TabIndex = 128;
+            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
+            // 
             // FormularioUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(729, 345);
+            Controls.Add(comboBox2);
             Controls.Add(btnLimpiar);
             Controls.Add(button1);
             Controls.Add(button2);
-            Controls.Add(textBox3);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(textBox1);
@@ -236,9 +238,9 @@
         private TextBox textBox1;
         protected Label label3;
         protected Label label4;
-        private TextBox textBox3;
         private Button btnLimpiar;
         private Button button1;
         private Button button2;
+        private ComboBox comboBox2;
     }
 }

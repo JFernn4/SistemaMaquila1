@@ -1,4 +1,5 @@
 ﻿using SistemaMaquila1;
+using SistemaMaquila1.Objetos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,11 @@ namespace SistemaDeImportadora
 {
     public partial class FormularioClientes : Form
     {
-        GestionClientes datoscliente = new GestionClientes();
-        public FormularioClientes(GestionClientes datoscliente)
+        GestionClientes gestion = new GestionClientes();
+        public FormularioClientes(GestionClientes gestion)
         {
             InitializeComponent();
-            this.datoscliente = datoscliente;
+            this.gestion = gestion;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -65,14 +66,14 @@ namespace SistemaDeImportadora
         }
         private void Guardar()
         {
-            Cliente cliente = new Cliente()
-            {
-                ID = int.Parse(textBox2.Text),
-                Nombre = textBox1.Text,
-                Telefono = maskedTextBox1.Text,
-                Correo = textBox3.Text
-            };
-            datoscliente.GuardarCliente(cliente);
+            Cliente cliente = new Cliente(
+                int.Parse(textBox2.Text),
+                textBox1.Text,
+                maskedTextBox1.Text,
+                textBox3.Text
+            );
+
+            gestion.GuardarCliente(cliente);
         }
         private void Cancelar()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SistemaMaquila1.Objetos;
 
 namespace SistemaMaquila1
 {
@@ -32,5 +33,23 @@ namespace SistemaMaquila1
 
         }
 
+    }
+    public class GestionEmpleados
+    {
+        List<Empleado> listaEmpleados = new List<Empleado>();
+        public void GuardarEmpleado(Empleado empleado)
+        {
+            listaEmpleados.Add(empleado);
+            BaseDatos.InsertarEmpleado(empleado);
+        }
+    }
+    public class GestionMateriales
+    {
+        List<Material> listaMateriales = new List<Material>();
+        public void GuardarMaterial(Material material)
+        {
+            listaMateriales.Add(material);
+            BaseDatos.InsertarMaterial(material);
+        }
     }
 }

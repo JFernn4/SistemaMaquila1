@@ -36,6 +36,10 @@ namespace SistemaMaquila1
         {
             SidePanel.Height = button3.Height;
             SidePanel.Top = button3.Top;
+            // temporal!
+            GestionEmpleados gestion = new GestionEmpleados();
+            FormularioEmpleados formEmpleados = new FormularioEmpleados(gestion);
+            formEmpleados.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -48,6 +52,7 @@ namespace SistemaMaquila1
         {
             SidePanel.Height = button11.Height;
             SidePanel.Top = button11.Top;
+            // temporal!
             GestionClientes gestion = new GestionClientes();
             FormularioClientes formClientes = new FormularioClientes(gestion);
             formClientes.Show();
