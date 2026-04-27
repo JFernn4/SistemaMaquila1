@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel1 = new Panel();
-            panel2 = new Panel();
             button11 = new Button();
             SidePanel = new Panel();
             button4 = new Button();
@@ -39,14 +38,16 @@
             button1 = new Button();
             button10 = new Button();
             configuracion1 = new Configuracion();
+            interfazClientes2 = new InterfazClientes();
+            panel3 = new Panel();
             inicioSesion1 = new SistemaDeImportadora.InicioSesion();
             panel1.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = SystemColors.HotTrack;
-            panel1.Controls.Add(panel2);
+            panel1.BackColor = Color.FromArgb(44, 47, 58);
             panel1.Controls.Add(button11);
             panel1.Controls.Add(SidePanel);
             panel1.Controls.Add(button4);
@@ -60,15 +61,6 @@
             panel1.TabIndex = 5;
             panel1.Paint += panel1_Paint;
             // 
-            // panel2
-            // 
-            panel2.BackgroundImage = (Image)resources.GetObject("panel2.BackgroundImage");
-            panel2.BackgroundImageLayout = ImageLayout.Stretch;
-            panel2.Location = new Point(12, 23);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(150, 133);
-            panel2.TabIndex = 9;
-            // 
             // button11
             // 
             button11.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
@@ -79,7 +71,7 @@
             button11.Image = (Image)resources.GetObject("button11.Image");
             button11.ImageAlign = ContentAlignment.MiddleLeft;
             button11.ImeMode = ImeMode.NoControl;
-            button11.Location = new Point(12, 382);
+            button11.Location = new Point(12, 341);
             button11.Name = "button11";
             button11.Size = new Size(176, 52);
             button11.TabIndex = 8;
@@ -89,8 +81,8 @@
             // 
             // SidePanel
             // 
-            SidePanel.BackColor = SystemColors.Info;
-            SidePanel.Location = new Point(0, 163);
+            SidePanel.BackColor = SystemColors.HotTrack;
+            SidePanel.Location = new Point(0, 122);
             SidePanel.Name = "SidePanel";
             SidePanel.Size = new Size(8, 54);
             SidePanel.TabIndex = 3;
@@ -106,7 +98,7 @@
             button4.Image = (Image)resources.GetObject("button4.Image");
             button4.ImageAlign = ContentAlignment.MiddleLeft;
             button4.ImeMode = ImeMode.NoControl;
-            button4.Location = new Point(12, 327);
+            button4.Location = new Point(12, 286);
             button4.Name = "button4";
             button4.Size = new Size(176, 52);
             button4.TabIndex = 6;
@@ -124,7 +116,7 @@
             button3.Image = (Image)resources.GetObject("button3.Image");
             button3.ImageAlign = ContentAlignment.MiddleLeft;
             button3.ImeMode = ImeMode.NoControl;
-            button3.Location = new Point(12, 272);
+            button3.Location = new Point(12, 231);
             button3.Name = "button3";
             button3.Size = new Size(176, 52);
             button3.TabIndex = 5;
@@ -142,7 +134,7 @@
             button2.Image = (Image)resources.GetObject("button2.Image");
             button2.ImageAlign = ContentAlignment.MiddleLeft;
             button2.ImeMode = ImeMode.NoControl;
-            button2.Location = new Point(12, 217);
+            button2.Location = new Point(12, 176);
             button2.Name = "button2";
             button2.Size = new Size(176, 52);
             button2.TabIndex = 4;
@@ -157,10 +149,10 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Century Gothic", 11.25F);
             button1.ForeColor = Color.White;
-            button1.Image = (Image)resources.GetObject("button1.Image");
+            button1.Image = Properties.Resources.icono_inicio;
             button1.ImageAlign = ContentAlignment.MiddleLeft;
             button1.ImeMode = ImeMode.NoControl;
-            button1.Location = new Point(12, 162);
+            button1.Location = new Point(12, 121);
             button1.Name = "button1";
             button1.Size = new Size(176, 52);
             button1.TabIndex = 3;
@@ -171,6 +163,7 @@
             // button10
             // 
             button10.BackColor = Color.Transparent;
+            button10.Dock = DockStyle.Right;
             button10.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
             button10.FlatAppearance.BorderSize = 0;
             button10.FlatStyle = FlatStyle.Flat;
@@ -179,9 +172,9 @@
             button10.Image = (Image)resources.GetObject("button10.Image");
             button10.ImageAlign = ContentAlignment.MiddleLeft;
             button10.ImeMode = ImeMode.NoControl;
-            button10.Location = new Point(997, 12);
+            button10.Location = new Point(818, 0);
             button10.Name = "button10";
-            button10.Size = new Size(34, 47);
+            button10.Size = new Size(34, 59);
             button10.TabIndex = 17;
             button10.UseVisualStyleBackColor = false;
             button10.Click += button10_Click;
@@ -193,6 +186,23 @@
             configuracion1.Size = new Size(748, 264);
             configuracion1.TabIndex = 18;
             // 
+            // interfazClientes2
+            // 
+            interfazClientes2.Location = new Point(194, 65);
+            interfazClientes2.Name = "interfazClientes2";
+            interfazClientes2.Size = new Size(851, 477);
+            interfazClientes2.TabIndex = 19;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = SystemColors.Control;
+            panel3.Controls.Add(button10);
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(191, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(852, 59);
+            panel3.TabIndex = 20;
+            // 
             // inicioSesion1
             // 
             inicioSesion1.AutoSize = true;
@@ -200,7 +210,7 @@
             inicioSesion1.Location = new Point(0, 0);
             inicioSesion1.Name = "inicioSesion1";
             inicioSesion1.Size = new Size(1043, 542);
-            inicioSesion1.TabIndex = 20;
+            inicioSesion1.TabIndex = 21;
             // 
             // Form1
             // 
@@ -208,15 +218,17 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1043, 542);
             Controls.Add(inicioSesion1);
-            Controls.Add(button10);
-            Controls.Add(panel1);
+            Controls.Add(interfazClientes2);
             Controls.Add(configuracion1);
+            Controls.Add(panel3);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema Maquila";
             Load += Form1_Load;
             panel1.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -232,7 +244,9 @@
         private Button button1;
         private Button button10;
         private Configuracion configuracion1;
+        private InterfazClientes interfazClientes1;
+        private InterfazClientes interfazClientes2;
+        private Panel panel3;
         private SistemaDeImportadora.InicioSesion inicioSesion1;
-        private Panel panel2;
     }
 }

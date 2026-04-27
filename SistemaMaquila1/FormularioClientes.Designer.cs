@@ -119,7 +119,6 @@
             // 
             // textBox3
             // 
-            textBox3.BorderStyle = BorderStyle.FixedSingle;
             textBox3.Cursor = Cursors.IBeam;
             textBox3.Font = new Font("Century Gothic", 12F);
             textBox3.Location = new Point(424, 194);
@@ -153,7 +152,6 @@
             // 
             // textBox1
             // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
             textBox1.Cursor = Cursors.IBeam;
             textBox1.Font = new Font("Century Gothic", 12F);
             textBox1.Location = new Point(132, 153);
@@ -193,7 +191,6 @@
             // 
             // textBox2
             // 
-            textBox2.BorderStyle = BorderStyle.FixedSingle;
             textBox2.Font = new Font("Century Gothic", 12F);
             textBox2.Location = new Point(191, 116);
             textBox2.Margin = new Padding(3, 2, 3, 2);
@@ -204,7 +201,6 @@
             // 
             // maskedTextBox1
             // 
-            maskedTextBox1.BorderStyle = BorderStyle.FixedSingle;
             maskedTextBox1.Font = new Font("Century Gothic", 12F);
             maskedTextBox1.Location = new Point(132, 195);
             maskedTextBox1.Margin = new Padding(3, 2, 3, 2);

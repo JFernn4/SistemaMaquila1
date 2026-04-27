@@ -269,6 +269,7 @@
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(223, 27);
             textBox4.TabIndex = 121;
+            textBox4.TextChanged += textBox4_TextChanged;
             // 
             // btnLimpiar
             // 

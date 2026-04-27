@@ -37,30 +37,31 @@ namespace SistemaDeImportadora
             {
                 if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox4.Text) || string.IsNullOrEmpty(textBox5.Text) || string.IsNullOrEmpty(comboBox2.Text))
                 {
-                    MessageBox.Show("Complete todos los datos");
+                    Toast.Mostrar("Complete todos los datos", esError: true, formPadre: this);
                     return;
                 }
                 if (!int.TryParse(textBox2.Text, out int id1))
                 {
-                    MessageBox.Show("Ingrese un ID valido");
+                    Toast.Mostrar("Ingrese un ID valido", esError: true, formPadre: this);
                     return;
                 }
-                if (!double.TryParse(textBox4.Text, out double salario))
+                if (!double.TryParse(textBox4.Text, out double salario) || salario < 0)
                 {
                     MessageBox.Show("Ingrese un salario valido");
                     return;
                 }
                 Guardar();
-                MessageBox.Show("Datos Guardados");
+                Toast.Mostrar("Empleado guardado", formPadre: this);
                 this.Close();
+                
             }
             catch (FormatException ex)
             {
-                MessageBox.Show("Error al guardar los datos, intente nuevamente");
+                Toast.Mostrar("Error al guardar los datos, intente nuevamente", esError: true, formPadre: this);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error inesperado: " + ex.Message);
+                Toast.Mostrar("Error inesperado: " + ex.Message, esError: true, formPadre: this);
             }
         }
         public void Guardar()
@@ -96,6 +97,11 @@ namespace SistemaDeImportadora
             Limpiar();
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
         }

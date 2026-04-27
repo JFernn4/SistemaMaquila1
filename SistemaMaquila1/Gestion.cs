@@ -32,6 +32,15 @@ namespace SistemaMaquila1
         {
 
         }
+        public bool ExistenClientes()
+        {
+            return BaseDatos.ObtenerClientes().Any();
+        }
+        public List<Cliente> ObtenerClientes()
+        {
+            return BaseDatos.ObtenerClientes();
+        }
+
 
     }
     public class GestionEmpleados

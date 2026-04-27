@@ -38,7 +38,7 @@ namespace SistemaMaquila1
 
                 Guardar();
                 MessageBox.Show("Datos Guardados");
-                this.Close();
+                this.Hide();
             }
             catch (FormatException ex)
             {

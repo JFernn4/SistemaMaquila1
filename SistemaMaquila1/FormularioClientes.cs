@@ -35,33 +35,37 @@ namespace SistemaDeImportadora
         {
 
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) //ACEPTAR
         {
             try
             {
-                if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(maskedTextBox1.Text) || string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox2.Text))
+                if (string.IsNullOrEmpty(textBox1.Text) ||
+                    string.IsNullOrEmpty(maskedTextBox1.Text) ||
+                    string.IsNullOrEmpty(textBox3.Text) ||
+                    string.IsNullOrEmpty(textBox2.Text))
                 {
-                    MessageBox.Show("Complete todos los datos");
+                    Toast.Mostrar("Complete todos los datos", esError: true, formPadre: this);
                     return;
                 }
+
                 if (!int.TryParse(textBox2.Text, out int id1))
                 {
-                    MessageBox.Show("Ingrese un ID valido");
+                    Toast.Mostrar("Ingrese un ID valido", esError: true, formPadre:this);
                     return;
                 }
 
                 Guardar();
-                MessageBox.Show("Datos Guardados");
                 this.Close();
+                Toast.Mostrar("Cliente guardado", formPadre: this);
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
-                MessageBox.Show("Error al guardar los datos, intente nuevamente");
+                Toast.Mostrar("Error al guardar los datos, intente nuevamente", esError: true, formPadre: this);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error inesperado: " + ex.Message);
+ 
+                Toast.Mostrar("Error inesperado: " + ex.Message, esError: true, formPadre: this);
             }
         }
         private void Guardar()

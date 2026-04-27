@@ -50,7 +50,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(0, 0, 64);
+            panel2.BackColor = Color.FromArgb(28, 35, 51);
             panel2.Controls.Add(panel3);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
@@ -93,7 +93,7 @@
             // 
             // button2
             // 
-            button2.BackColor = Color.FromArgb(0, 0, 64);
+            button2.BackColor = Color.FromArgb(28, 35, 51);
             button2.Cursor = Cursors.Hand;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 12F);

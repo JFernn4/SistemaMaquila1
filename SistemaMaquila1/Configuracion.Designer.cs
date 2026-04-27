@@ -73,6 +73,7 @@
             button4.TabIndex = 115;
             button4.Text = "Regresar";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // button3
             // 
