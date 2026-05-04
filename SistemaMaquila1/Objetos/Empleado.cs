@@ -8,16 +8,18 @@ namespace SistemaMaquila1.Objetos
 {
     public class Empleado
     {
-        public int ID { get; set; }
+        public int ID { get; set; }       // autoincrement
+        public string DPI { get; set; }  
         public string Nombre { get; set; }
         public string Telefono { get; set; }
         public string Cargo { get; set; }
         public string Correo { get; set; }
         public double Salario { get; set; }
 
-        public Empleado(int iD, string nombre, string telefono, string cargo, string correo, double salario)
+        public Empleado(int id, string dpi, string nombre, string telefono, string cargo, string correo, double salario)
         {
-            ID = iD;
+            ID = id;
+            DPI = dpi;
             Nombre = nombre;
             Telefono = telefono;
             Cargo = cargo;

@@ -8,14 +8,16 @@ namespace SistemaMaquila1.Objetos
 {
     public class Cliente
     {
-        public int ID { get; set; }
+        public int ID { get; set; }       // autoincrement, lo asigna la BD
+        public string DPI { get; set; }   
         public string Nombre { get; set; }
         public string Telefono { get; set; }
         public string Correo { get; set; }
 
-        public Cliente(int iD, string nombre, string telefono, string correo)
+        public Cliente(int id, string dpi, string nombre, string telefono, string correo)
         {
-            ID = iD;
+            ID = id;
+            DPI = dpi;
             Nombre = nombre;
             Telefono = telefono;
             Correo = correo;
