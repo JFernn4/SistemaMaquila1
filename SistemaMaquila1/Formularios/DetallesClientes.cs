@@ -21,7 +21,7 @@ namespace SistemaMaquila1.Formularios
             InitializeComponent();
             _cliente = cliente;
 
-            _modoEdicion = new Control[] { btnLimpiar, button2, textBox1, textBox2, textBox3, maskedTextBox1 };
+            _modoEdicion = new Control[] { button2, textBox1, textBox2, textBox3, maskedTextBox1 };
             _modoDetalle = new Control[] { button4, button3, label4, label7, label8, label9 };
         }
 
@@ -102,14 +102,11 @@ namespace SistemaMaquila1.Formularios
             this.Close();
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e) // Limpiar (modo edición)
-        {
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            maskedTextBox1.Clear();
-        }
-
         private void textBox2_TextChanged(object sender, EventArgs e) { }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -72,7 +72,7 @@
             button11.Image = (Image)resources.GetObject("button11.Image");
             button11.ImageAlign = ContentAlignment.MiddleLeft;
             button11.ImeMode = ImeMode.NoControl;
-            button11.Location = new Point(12, 341);
+            button11.Location = new Point(9, 348);
             button11.Name = "button11";
             button11.Size = new Size(176, 52);
             button11.TabIndex = 8;
@@ -83,7 +83,7 @@
             // SidePanel
             // 
             SidePanel.BackColor = SystemColors.HotTrack;
-            SidePanel.Location = new Point(0, 122);
+            SidePanel.Location = new Point(-3, 129);
             SidePanel.Name = "SidePanel";
             SidePanel.Size = new Size(8, 54);
             SidePanel.TabIndex = 3;
@@ -99,7 +99,7 @@
             button4.Image = (Image)resources.GetObject("button4.Image");
             button4.ImageAlign = ContentAlignment.MiddleLeft;
             button4.ImeMode = ImeMode.NoControl;
-            button4.Location = new Point(12, 286);
+            button4.Location = new Point(9, 293);
             button4.Name = "button4";
             button4.Size = new Size(176, 52);
             button4.TabIndex = 6;
@@ -117,7 +117,7 @@
             button3.Image = (Image)resources.GetObject("button3.Image");
             button3.ImageAlign = ContentAlignment.MiddleLeft;
             button3.ImeMode = ImeMode.NoControl;
-            button3.Location = new Point(12, 231);
+            button3.Location = new Point(9, 238);
             button3.Name = "button3";
             button3.Size = new Size(176, 52);
             button3.TabIndex = 5;
@@ -135,7 +135,7 @@
             button2.Image = (Image)resources.GetObject("button2.Image");
             button2.ImageAlign = ContentAlignment.MiddleLeft;
             button2.ImeMode = ImeMode.NoControl;
-            button2.Location = new Point(12, 176);
+            button2.Location = new Point(9, 183);
             button2.Name = "button2";
             button2.Size = new Size(176, 52);
             button2.TabIndex = 4;
@@ -153,7 +153,7 @@
             button1.Image = Properties.Resources.icono_inicio;
             button1.ImageAlign = ContentAlignment.MiddleLeft;
             button1.ImeMode = ImeMode.NoControl;
-            button1.Location = new Point(12, 121);
+            button1.Location = new Point(9, 128);
             button1.Name = "button1";
             button1.Size = new Size(176, 52);
             button1.TabIndex = 3;
@@ -189,9 +189,9 @@
             // 
             // interfazClientes2
             // 
-            interfazClientes2.Location = new Point(194, 56);
+            interfazClientes2.Location = new Point(191, 56);
             interfazClientes2.Name = "interfazClientes2";
-            interfazClientes2.Size = new Size(851, 486);
+            interfazClientes2.Size = new Size(852, 486);
             interfazClientes2.TabIndex = 19;
             // 
             // panel3
@@ -228,11 +228,11 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1043, 542);
-            Controls.Add(inicioSesion1);
             Controls.Add(panel3);
             Controls.Add(panel1);
-            Controls.Add(configuracion1);
             Controls.Add(interfazClientes2);
+            Controls.Add(inicioSesion1);
+            Controls.Add(configuracion1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;

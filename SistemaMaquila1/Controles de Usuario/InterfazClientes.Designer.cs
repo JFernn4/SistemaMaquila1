@@ -73,7 +73,7 @@
             panel1.BackColor = SystemColors.ButtonHighlight;
             panel1.Location = new Point(23, 102);
             panel1.Name = "panel1";
-            panel1.Size = new Size(811, 350);
+            panel1.Size = new Size(811, 361);
             panel1.TabIndex = 117;
             panel1.Paint += panel1_Paint;
             // 
@@ -90,10 +90,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(23, 23);
             label2.Name = "label2";
-            label2.Size = new Size(72, 21);
+            label2.Size = new Size(69, 19);
             label2.TabIndex = 119;
             label2.Text = "Clientes";
             // 

@@ -35,7 +35,7 @@ namespace SistemaDeImportadora
         {
             try
             {
-                if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox4.Text) || string.IsNullOrEmpty(textBox5.Text) || string.IsNullOrEmpty(comboBox2.Text))
+                if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox4.Text) || string.IsNullOrEmpty(maskedTextBox1.Text) || string.IsNullOrEmpty(comboBox2.Text))
                 {
                     Toast.Mostrar("Complete todos los datos", esError: true, formPadre: this);
                     return;
@@ -70,7 +70,7 @@ namespace SistemaDeImportadora
                 0,               // ID autoincrement
                 textBox2.Text,   // DPI
                 textBox1.Text,   // Nombre
-                textBox5.Text,   // Teléfono
+                maskedTextBox1.Text,   // Teléfono
                 comboBox2.Text,  // Cargo
                 textBox3.Text,   // Correo
                 salario          // ya parseado arriba
@@ -84,7 +84,7 @@ namespace SistemaDeImportadora
             textBox2.Clear();
             textBox3.Clear();
             textBox4.Clear();
-            textBox5.Clear();
+            maskedTextBox1.Clear();
             comboBox2.Text = "";
         }
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -102,6 +102,11 @@ namespace SistemaDeImportadora
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
 
         }
