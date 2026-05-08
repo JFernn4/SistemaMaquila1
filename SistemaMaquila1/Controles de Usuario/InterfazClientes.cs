@@ -22,6 +22,12 @@ namespace SistemaMaquila1
         private void InterfazClientes_Load(object sender, EventArgs e)
         {
             CargarClientes();
+
+            // Rerenderizar cuando el panel cambie de tamaño 
+            panel1.Resize += (s, ev) =>
+            {
+                GestionListasVisuales.Filtrar<Cliente>(panel1, textBox1.Text);
+            };
         }
 
         private void CargarClientes()
@@ -77,17 +83,20 @@ namespace SistemaMaquila1
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                // Sin texto: mostrar todos
+                // Restaurar estado normal
+                label1.Text = "No se ha registrado ningún cliente";
+                label1.Visible = false;
+                panel1.Visible = true; 
                 GestionListasVisuales.Filtrar<Cliente>(panel1, "");
             }
             else
             {
                 GestionListasVisuales.Filtrar<Cliente>(panel1, textBox1.Text);
 
-                // Mostrar aviso si no hay resultados
                 bool sinResultados = panel1.Controls.Count == 0;
                 label1.Text = sinResultados ? "No se encontraron clientes." : "";
                 label1.Visible = sinResultados;
+                panel1.Visible = !sinResultados; 
             }
         }
 
@@ -99,6 +108,7 @@ namespace SistemaMaquila1
         {
             FormularioClientes formClientes = new FormularioClientes(gestion);
             formClientes.ShowDialog();
+            textBox1.Clear();
             CargarClientes();  
         }
     }

@@ -42,6 +42,8 @@
             panel3 = new Panel();
             interfazUsuarioActual1 = new InterfazUsuarioActual();
             inicioSesion1 = new SistemaDeImportadora.InicioSesion();
+            interfazEmpleados1 = new Controles_de_Usuario.InterfazEmpleados();
+            interfazMateriales1 = new Controles_de_Usuario.InterfazMateriales();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
@@ -186,12 +188,14 @@
             configuracion1.Name = "configuracion1";
             configuracion1.Size = new Size(748, 264);
             configuracion1.TabIndex = 18;
+            configuracion1.Load += configuracion1_Load;
             // 
             // interfazClientes2
             // 
-            interfazClientes2.Location = new Point(191, 56);
+            interfazClientes2.Dock = DockStyle.Fill;
+            interfazClientes2.Location = new Point(0, 0);
             interfazClientes2.Name = "interfazClientes2";
-            interfazClientes2.Size = new Size(852, 486);
+            interfazClientes2.Size = new Size(1043, 542);
             interfazClientes2.TabIndex = 19;
             // 
             // panel3
@@ -212,6 +216,7 @@
             interfazUsuarioActual1.Name = "interfazUsuarioActual1";
             interfazUsuarioActual1.Size = new Size(214, 59);
             interfazUsuarioActual1.TabIndex = 18;
+
             // 
             // inicioSesion1
             // 
@@ -223,13 +228,36 @@
             inicioSesion1.TabIndex = 19;
             inicioSesion1.Load += inicioSesion1_Load_2;
             // 
+            // interfazEmpleados1
+            // 
+            interfazEmpleados1.Dock = DockStyle.Fill;
+            interfazEmpleados1.Location = new Point(0, 0);
+            interfazEmpleados1.Name = "interfazEmpleados1";
+            interfazEmpleados1.Size = new Size(1043, 542);
+            interfazEmpleados1.TabIndex = 21;
+            interfazEmpleados1.Load += interfazEmpleados1_Load;
+            // 
+            // interfazMateriales1
+            // 
+            interfazMateriales1.Location = new Point(191, 56);
+            interfazMateriales1.Name = "interfazMateriales1";
+            interfazMateriales1.RightToLeft = RightToLeft.Yes;
+            interfazMateriales1.Size = new Size(852, 486);
+            interfazMateriales1.TabIndex = 22;
+            interfazMateriales1.Load += interfazMateriales1_Load;
+            interfazMateriales1.Dock = DockStyle.Fill;
+            interfazMateriales1.RightToLeft = RightToLeft.No;
+            interfazMateriales1.TabIndex = 22;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1043, 542);
+            Controls.Add(interfazMateriales1);
             Controls.Add(panel3);
             Controls.Add(panel1);
+            Controls.Add(interfazEmpleados1);
             Controls.Add(interfazClientes2);
             Controls.Add(inicioSesion1);
             Controls.Add(configuracion1);
@@ -260,5 +288,8 @@
         private Panel panel3;
         private InterfazUsuarioActual interfazUsuarioActual1;
         private SistemaDeImportadora.InicioSesion inicioSesion1;
+        private Controles_de_Usuario.InterfazEmpleados interfazEmpleados1;
+        private Controles_de_Usuario.InterfazMateriales detallesMateriales1;
+        private Controles_de_Usuario.InterfazMateriales interfazMateriales1;
     }
 }
