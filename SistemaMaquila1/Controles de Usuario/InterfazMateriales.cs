@@ -63,12 +63,12 @@ namespace SistemaMaquila1.Controles_de_Usuario
         // Botón "+"
         private void button1_Click(object sender, EventArgs e)
         {
-            FormularioMateriales formMateriales = new FormularioMateriales(gestion);
+           FormularioMateriales formMateriales = new FormularioMateriales(gestion);
             formMateriales.ShowDialog();
             textBox1.Clear();
             CargarMateriales();
         }
-
+ 
         // Barra de búsqueda
         private void textBox1_TextChanged(object sender, EventArgs e)
         {

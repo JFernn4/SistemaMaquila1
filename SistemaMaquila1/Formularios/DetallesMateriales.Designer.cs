@@ -437,6 +437,7 @@
             Controls.Add(button2);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "DetallesMateriales";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "DetallesMateriales";
             Load += DetallesMateriales_Load;
             panel2.ResumeLayout(false);

@@ -15,7 +15,8 @@ namespace SistemaMaquila1.Objetos
         public DateTime FechaEntrega { get; set; }
         public double Anticipo { get; set; }
         public double Total { get; set; }
-        public string Estado { get; set; } // Ej: "Pendiente", "En proceso", "Completado"
+        public string Estado { get; set; }
+        public List<DetallePedido> Prendas { get; set; } = new List<DetallePedido>();
 
         public Pedido(int id, int clienteId, int empleadoId, DateTime fechaInicio,
                       DateTime fechaEntrega, double anticipo, double total, string estado)
@@ -28,6 +29,7 @@ namespace SistemaMaquila1.Objetos
             Anticipo = anticipo;
             Total = total;
             Estado = estado;
+            Prendas = new List<DetallePedido>();
         }
     }
 }

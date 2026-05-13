@@ -457,25 +457,59 @@ namespace SistemaMaquila1.Herramientas
 
         //  PEDIDOS 
 
+        // InsertarPedido actualizado — también guarda las prendas
         public static void InsertarPedido(Pedido pedido)
         {
             using (var conn = AbrirConexion())
-            using (var cmd = conn.CreateCommand())
             {
-                cmd.CommandText = @"INSERT INTO TPedidos 
-                            (ClienteId, EmpleadoId, FechaInicio, FechaEntrega, Anticipo, Total, Estado)
-                            VALUES (@ClienteId, @EmpleadoId, @FechaInicio, @FechaEntrega, @Anticipo, @Total, @Estado)";
-                cmd.Parameters.AddWithValue("@ClienteId", pedido.ClienteId);
-                cmd.Parameters.AddWithValue("@EmpleadoId", pedido.EmpleadoId);
-                cmd.Parameters.AddWithValue("@FechaInicio", pedido.FechaInicio.ToString("yyyy-MM-dd"));
-                cmd.Parameters.AddWithValue("@FechaEntrega", pedido.FechaEntrega.ToString("yyyy-MM-dd"));
-                cmd.Parameters.AddWithValue("@Anticipo", pedido.Anticipo);
-                cmd.Parameters.AddWithValue("@Total", pedido.Total);
-                cmd.Parameters.AddWithValue("@Estado", pedido.Estado);
-                cmd.ExecuteNonQuery();
+                // 1. Insertar el pedido
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO TPedidos 
+                                (ClienteId, EmpleadoId, FechaInicio, FechaEntrega, Anticipo, Total, Estado)
+                                VALUES (@ClienteId, @EmpleadoId, @FechaInicio, @FechaEntrega, @Anticipo, @Total, @Estado)";
+                    cmd.Parameters.AddWithValue("@ClienteId", pedido.ClienteId);
+                    cmd.Parameters.AddWithValue("@EmpleadoId", pedido.EmpleadoId);
+                    cmd.Parameters.AddWithValue("@FechaInicio", pedido.FechaInicio.ToString("yyyy-MM-dd"));
+                    cmd.Parameters.AddWithValue("@FechaEntrega", pedido.FechaEntrega.ToString("yyyy-MM-dd"));
+                    cmd.Parameters.AddWithValue("@Anticipo", pedido.Anticipo);
+                    cmd.Parameters.AddWithValue("@Total", pedido.Total);
+                    cmd.Parameters.AddWithValue("@Estado", pedido.Estado);
+                    cmd.ExecuteNonQuery();
+
+                    // Obtener ID del pedido recién insertado
+                    cmd.CommandText = "SELECT last_insert_rowid()";
+                    int pedidoId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    // 2. Para cada detalle: guardar la prenda primero, luego el detalle
+                    foreach (var detalle in pedido.Prendas)
+                    {
+                        // Insertar la prenda y obtener su ID
+                        cmd.CommandText = "INSERT INTO TPrendas (Tipo, Talla, Descripcion) VALUES (@Tipo, @Talla, @Descripcion)";
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@Tipo", detalle.Prenda.Tipo);
+                        cmd.Parameters.AddWithValue("@Talla", detalle.Prenda.Talla);
+                        cmd.Parameters.AddWithValue("@Descripcion", detalle.Prenda.Descripcion);
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = "SELECT last_insert_rowid()";
+                        int prendaId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        // Insertar el detalle con IDs reales
+                        cmd.CommandText = @"INSERT INTO TDetallePedido 
+                                    (PedidoId, PrendaId, Cantidad, PrecioUnitario)
+                                    VALUES (@PedidoId, @PrendaId, @Cantidad, @PrecioUnitario)";
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@PedidoId", pedidoId);
+                        cmd.Parameters.AddWithValue("@PrendaId", prendaId);
+                        cmd.Parameters.AddWithValue("@Cantidad", detalle.Cantidad);
+                        cmd.Parameters.AddWithValue("@PrecioUnitario", detalle.PrecioUnitario);
+                        cmd.ExecuteNonQuery();
+                    }   
+                }
             }
         }
-
+        // ObtenerPedidos actualizado — carga las prendas de cada pedido
         public static List<Pedido> ObtenerPedidos()
         {
             var lista = new List<Pedido>();
@@ -485,7 +519,7 @@ namespace SistemaMaquila1.Herramientas
             {
                 while (reader.Read())
                 {
-                    lista.Add(new Pedido(
+                    var pedido = new Pedido(
                         Convert.ToInt32(reader["Id"]),
                         Convert.ToInt32(reader["ClienteId"]),
                         Convert.ToInt32(reader["EmpleadoId"]),
@@ -494,17 +528,22 @@ namespace SistemaMaquila1.Herramientas
                         Convert.ToDouble(reader["Anticipo"]),
                         Convert.ToDouble(reader["Total"]),
                         reader["Estado"].ToString()
-                    ));
+                    );
+                    // Cargar prendas del pedido
+                    pedido.Prendas = ObtenerDetallesPorPedido(pedido.ID);
+                    lista.Add(pedido);
                 }
             }
             return lista;
         }
 
+        // ActualizarPedido actualizado — reemplaza las prendas
         public static void ActualizarPedido(Pedido pedido)
         {
             using (var conn = AbrirConexion())
             using (var cmd = conn.CreateCommand())
             {
+                // 1. Actualizar el pedido
                 cmd.CommandText = @"UPDATE TPedidos 
                             SET ClienteId = @ClienteId, EmpleadoId = @EmpleadoId,
                                 FechaInicio = @FechaInicio, FechaEntrega = @FechaEntrega,
@@ -519,6 +558,48 @@ namespace SistemaMaquila1.Herramientas
                 cmd.Parameters.AddWithValue("@Estado", pedido.Estado);
                 cmd.Parameters.AddWithValue("@Id", pedido.ID);
                 cmd.ExecuteNonQuery();
+
+                // 2. Eliminar detalles viejos
+                cmd.CommandText = "DELETE FROM TDetallePedido WHERE PedidoId = @PedidoId";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@PedidoId", pedido.ID);
+                cmd.ExecuteNonQuery();
+
+                // 3. Reinsertar cada prenda y su detalle
+                foreach (var detalle in pedido.Prendas)
+                {
+                    int prendaId;
+
+                    if (detalle.Prenda.ID == 0)
+                    {
+                        // Prenda nueva — insertarla primero
+                        cmd.CommandText = "INSERT INTO TPrendas (Tipo, Talla, Descripcion) VALUES (@Tipo, @Talla, @Descripcion)";
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@Tipo", detalle.Prenda.Tipo);
+                        cmd.Parameters.AddWithValue("@Talla", detalle.Prenda.Talla);
+                        cmd.Parameters.AddWithValue("@Descripcion", detalle.Prenda.Descripcion);
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = "SELECT last_insert_rowid()";
+                        prendaId = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                    else
+                    {
+                        // Prenda existente — usar su ID
+                        prendaId = detalle.Prenda.ID;
+                    }
+
+                    // Insertar detalle con ID real
+                    cmd.CommandText = @"INSERT INTO TDetallePedido 
+                                (PedidoId, PrendaId, Cantidad, PrecioUnitario)
+                                VALUES (@PedidoId, @PrendaId, @Cantidad, @PrecioUnitario)";
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@PedidoId", pedido.ID);
+                    cmd.Parameters.AddWithValue("@PrendaId", prendaId);
+                    cmd.Parameters.AddWithValue("@Cantidad", detalle.Cantidad);
+                    cmd.Parameters.AddWithValue("@PrecioUnitario", detalle.PrecioUnitario);
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
@@ -532,6 +613,72 @@ namespace SistemaMaquila1.Herramientas
                 cmd.ExecuteNonQuery();
             }
         }
+        // ─── DETALLE PEDIDO 
+
+        public static void InsertarDetallePedido(DetallePedido detalle)
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"INSERT INTO TDetallePedido 
+                            (PedidoId, PrendaId, Cantidad, PrecioUnitario)
+                            VALUES (@PedidoId, @PrendaId, @Cantidad, @PrecioUnitario)";
+                cmd.Parameters.AddWithValue("@PedidoId", detalle.PedidoId);
+                cmd.Parameters.AddWithValue("@PrendaId", detalle.PrendaId);
+                cmd.Parameters.AddWithValue("@Cantidad", detalle.Cantidad);
+                cmd.Parameters.AddWithValue("@PrecioUnitario", detalle.PrecioUnitario);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static List<DetallePedido> ObtenerDetallesPorPedido(int pedidoId)
+        {
+            var lista = new List<DetallePedido>();
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"SELECT d.*, p.Tipo, p.Talla, p.Descripcion 
+                            FROM TDetallePedido d
+                            JOIN TPrendas p ON d.PrendaId = p.Id
+                            WHERE d.PedidoId = @PedidoId";
+                cmd.Parameters.AddWithValue("@PedidoId", pedidoId);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var detalle = new DetallePedido(
+                            Convert.ToInt32(reader["Id"]),
+                            Convert.ToInt32(reader["PedidoId"]),
+                            Convert.ToInt32(reader["PrendaId"]),
+                            Convert.ToInt32(reader["Cantidad"]),
+                            Convert.ToDouble(reader["PrecioUnitario"])
+                        );
+                        // Adjuntar el objeto Prenda directamente
+                        detalle.Prenda = new Prenda(
+                            Convert.ToInt32(reader["PrendaId"]),
+                            reader["Tipo"].ToString(),
+                            reader["Talla"].ToString(),
+                            reader["Descripcion"].ToString()
+                        );
+                        lista.Add(detalle);
+                    }
+                }
+            }
+            return lista;
+        }
+
+        public static void EliminarDetallesPorPedido(int pedidoId)
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = "DELETE FROM TDetallePedido WHERE PedidoId = @PedidoId";
+                cmd.Parameters.AddWithValue("@PedidoId", pedidoId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
 
     }
 }

@@ -28,12 +28,388 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "FormularioPedidos";
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            label2 = new Label();
+            comboBox1 = new ComboBox();
+            label1 = new Label();
+            textBox5 = new TextBox();
+            textBox4 = new TextBox();
+            button1 = new Button();
+            button2 = new Button();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label10 = new Label();
+            dataGridView1 = new DataGridView();
+            comboBox3 = new ComboBox();
+            label9 = new Label();
+            button3 = new Button();
+            label11 = new Label();
+            textBox1 = new TextBox();
+            comboBox2 = new ComboBox();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel2.SuspendLayout();
+            SuspendLayout();
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ActiveCaptionText;
+            label2.Location = new Point(45, 63);
+            label2.Name = "label2";
+            label2.Size = new Size(159, 19);
+            label2.TabIndex = 125;
+            label2.Text = "Detalles del pedido";
+            // 
+            // comboBox1
+            // 
+            comboBox1.Font = new Font("Century Gothic", 12F);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Administrador", "Encargado de Ventas", "Bodega", "Producción" });
+            comboBox1.Location = new Point(48, 160);
+            comboBox1.Margin = new Padding(3, 2, 3, 2);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(174, 29);
+            comboBox1.TabIndex = 161;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ButtonShadow;
+            label1.Location = new Point(45, 601);
+            label1.Name = "label1";
+            label1.Size = new Size(49, 21);
+            label1.TabIndex = 159;
+            label1.Text = "Total";
+            // 
+            // textBox5
+            // 
+            textBox5.Font = new Font("Century Gothic", 12F);
+            textBox5.Location = new Point(48, 229);
+            textBox5.Margin = new Padding(3, 2, 3, 2);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(174, 27);
+            textBox5.TabIndex = 157;
+            // 
+            // textBox4
+            // 
+            textBox4.Cursor = Cursors.IBeam;
+            textBox4.Font = new Font("Century Gothic", 12F);
+            textBox4.Location = new Point(48, 300);
+            textBox4.Margin = new Padding(3, 2, 3, 2);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(174, 27);
+            textBox4.TabIndex = 156;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(44, 47, 58);
+            button1.Cursor = Cursors.Hand;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Century Gothic", 12F);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(440, 689);
+            button1.Name = "button1";
+            button1.Size = new Size(112, 37);
+            button1.TabIndex = 154;
+            button1.Text = "Cancelar";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.FromArgb(44, 47, 58);
+            button2.Cursor = Cursors.Hand;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Century Gothic", 12F);
+            button2.ForeColor = Color.White;
+            button2.Location = new Point(310, 689);
+            button2.Name = "button2";
+            button2.Size = new Size(112, 37);
+            button2.TabIndex = 153;
+            button2.Text = "Registrar";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.BackColor = Color.Transparent;
+            label8.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.ForeColor = SystemColors.ActiveCaptionText;
+            label8.Location = new Point(48, 289);
+            label8.Name = "label8";
+            label8.Size = new Size(0, 21);
+            label8.TabIndex = 152;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.Transparent;
+            label7.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.ForeColor = SystemColors.ButtonShadow;
+            label7.Location = new Point(48, 268);
+            label7.Name = "label7";
+            label7.Size = new Size(77, 21);
+            label7.TabIndex = 151;
+            label7.Text = "Anticipo";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
+            label6.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.ForeColor = SystemColors.ButtonShadow;
+            label6.Location = new Point(252, 266);
+            label6.Name = "label6";
+            label6.Size = new Size(64, 21);
+            label6.TabIndex = 150;
+            label6.Text = "Estado";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.ButtonShadow;
+            label5.Location = new Point(48, 198);
+            label5.Name = "label5";
+            label5.Size = new Size(127, 21);
+            label5.TabIndex = 149;
+            label5.Text = "Fecha de inicio";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.ButtonShadow;
+            label4.Location = new Point(252, 197);
+            label4.Name = "label4";
+            label4.Size = new Size(152, 21);
+            label4.TabIndex = 148;
+            label4.Text = "Fecha de entrega";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ButtonShadow;
+            label3.Location = new Point(252, 136);
+            label3.Name = "label3";
+            label3.Size = new Size(90, 21);
+            label3.TabIndex = 147;
+            label3.Text = "Empleado";
+            label3.Click += label3_Click;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.BackColor = Color.Transparent;
+            label10.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.ForeColor = SystemColors.ButtonShadow;
+            label10.Location = new Point(48, 128);
+            label10.Name = "label10";
+            label10.Size = new Size(66, 21);
+            label10.TabIndex = 145;
+            label10.Text = "Cliente";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.BackgroundColor = SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridView1.Location = new Point(48, 382);
+            dataGridView1.Name = "dataGridView1";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridView1.Size = new Size(504, 204);
+            dataGridView1.TabIndex = 162;
+            // 
+            // comboBox3
+            // 
+            comboBox3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Location = new Point(252, 160);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(302, 29);
+            comboBox3.TabIndex = 163;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.BackColor = Color.Transparent;
+            label9.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.ForeColor = SystemColors.ButtonShadow;
+            label9.Location = new Point(48, 350);
+            label9.Name = "label9";
+            label9.Size = new Size(72, 21);
+            label9.TabIndex = 164;
+            label9.Text = "Prendas";
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.FromArgb(44, 47, 58);
+            button3.Cursor = Cursors.Hand;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Century Gothic", 12F);
+            button3.ForeColor = Color.White;
+            button3.Location = new Point(489, 537);
+            button3.Name = "button3";
+            button3.Size = new Size(52, 37);
+            button3.TabIndex = 165;
+            button3.Text = "+";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.BackColor = Color.Transparent;
+            label11.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.ForeColor = SystemColors.ActiveCaptionText;
+            label11.Location = new Point(45, 631);
+            label11.Name = "label11";
+            label11.Size = new Size(59, 21);
+            label11.TabIndex = 166;
+            label11.Text = "Q 0.00";
+            // 
+            // textBox1
+            // 
+            textBox1.Cursor = Cursors.IBeam;
+            textBox1.Font = new Font("Century Gothic", 12F);
+            textBox1.Location = new Point(252, 229);
+            textBox1.Margin = new Padding(3, 2, 3, 2);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(302, 27);
+            textBox1.TabIndex = 167;
+            // 
+            // comboBox2
+            // 
+            comboBox2.Font = new Font("Century Gothic", 12F);
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "Administrador", "Encargado de Ventas", "Bodega", "Producción" });
+            comboBox2.Location = new Point(252, 300);
+            comboBox2.Margin = new Padding(3, 2, 3, 2);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(302, 29);
+            comboBox2.TabIndex = 168;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(44, 47, 58);
+            panel2.Controls.Add(panel3);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(598, 10);
+            panel2.TabIndex = 169;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.Black;
+            panel3.ForeColor = SystemColors.ButtonHighlight;
+            panel3.Location = new Point(429, 10);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(326, 128);
+            panel3.TabIndex = 14;
+            // 
+            // FormularioPedidos
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonHighlight;
+            ClientSize = new Size(598, 789);
+            Controls.Add(panel2);
+            Controls.Add(comboBox2);
+            Controls.Add(textBox1);
+            Controls.Add(label11);
+            Controls.Add(button3);
+            Controls.Add(label9);
+            Controls.Add(comboBox3);
+            Controls.Add(dataGridView1);
+            Controls.Add(comboBox1);
+            Controls.Add(label1);
+            Controls.Add(textBox5);
+            Controls.Add(textBox4);
+            Controls.Add(button1);
+            Controls.Add(button2);
+            Controls.Add(label8);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label10);
+            Controls.Add(label2);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Name = "FormularioPedidos";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "FormularioPedidos";
+            Load += FormularioPedidos_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel2.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        protected Label label2;
+        private ComboBox comboBox1;
+        protected Label label1;
+        private TextBox textBox5;
+        private TextBox textBox4;
+        private Button button1;
+        private Button button2;
+        protected Label label8;
+        protected Label label7;
+        protected Label label6;
+        protected Label label5;
+        protected Label label4;
+        protected Label label3;
+        protected Label label10;
+        private DataGridView dataGridView1;
+        private ComboBox comboBox3;
+        protected Label label9;
+        private Button button3;
+        protected Label label11;
+        private TextBox textBox1;
+        private ComboBox comboBox2;
+        private Panel panel2;
+        private Panel panel3;
     }
 }

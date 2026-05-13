@@ -64,11 +64,14 @@ namespace SistemaMaquila1.Herramientas
     {
         public void GuardarPedido(Pedido pedido) => BaseDatos.InsertarPedido(pedido);
         public void ActualizarPedido(Pedido pedido) => BaseDatos.ActualizarPedido(pedido);
-        public void EliminarPedido(int id) => BaseDatos.EliminarPedido(id);
+        public void EliminarPedido(int id)
+        {
+            BaseDatos.EliminarDetallesPorPedido(id); 
+            BaseDatos.EliminarPedido(id);
+        }
         public List<Pedido> ObtenerPedidos() => BaseDatos.ObtenerPedidos();
         public bool ExistenPedidos() => BaseDatos.ObtenerPedidos().Any();
 
-        // Útil para filtrar pedidos por cliente o empleado
         public List<Pedido> ObtenerPedidosPorCliente(int clienteId)
             => BaseDatos.ObtenerPedidos().Where(p => p.ClienteId == clienteId).ToList();
 

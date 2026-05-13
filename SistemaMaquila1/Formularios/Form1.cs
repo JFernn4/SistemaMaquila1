@@ -35,7 +35,7 @@ namespace SistemaMaquila1
             // Mapea botones con sus vistas
             _vistas = new Dictionary<Button, Control>
             {
-                { button1,  null },              // Inicio  sin vista por ahora
+                { button1,  interfazPedidos1 },              // Inicio  sin vista por ahora
                 { button2,  interfazMateriales1 },              // Inventario  pendiente
                 { button3,  interfazEmpleados1 },
                 { button4,  null },              // Reportes  pendiente
@@ -43,7 +43,7 @@ namespace SistemaMaquila1
             };
 
             // MostrarLogin(); // comentado temporalmente
-            ActivarBoton(button11); // vista por defecto al arrancar
+            ActivarBoton(button1); // vista por defecto al arrancar
         }
 
         //  Navegación 
@@ -109,7 +109,7 @@ namespace SistemaMaquila1
             inicioSesion1.Visible = false;
             panel1.Visible = true;
             interfazUsuarioActual1.ActualizarUI();
-            ActivarBoton(button11); // vista por defecto al iniciar sesión
+            ActivarBoton(button1); // vista por defecto al iniciar sesión
         }
 
         private void SidePanel_Paint(object sender, PaintEventArgs e) { }

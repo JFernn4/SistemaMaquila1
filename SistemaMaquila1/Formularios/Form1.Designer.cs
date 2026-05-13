@@ -44,6 +44,7 @@
             inicioSesion1 = new SistemaDeImportadora.InicioSesion();
             interfazEmpleados1 = new Controles_de_Usuario.InterfazEmpleados();
             interfazMateriales1 = new Controles_de_Usuario.InterfazMateriales();
+            interfazPedidos1 = new InterfazPedidos();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
@@ -51,6 +52,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(44, 47, 58);
+            panel1.BackgroundImageLayout = ImageLayout.Stretch;
             panel1.Controls.Add(button11);
             panel1.Controls.Add(SidePanel);
             panel1.Controls.Add(button4);
@@ -66,6 +68,7 @@
             // 
             // button11
             // 
+            button11.BackColor = Color.FromArgb(44, 47, 58);
             button11.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
             button11.FlatAppearance.BorderSize = 0;
             button11.FlatStyle = FlatStyle.Flat;
@@ -79,7 +82,7 @@
             button11.Size = new Size(176, 52);
             button11.TabIndex = 8;
             button11.Text = "  Clientes";
-            button11.UseVisualStyleBackColor = true;
+            button11.UseVisualStyleBackColor = false;
             button11.Click += button11_Click;
             // 
             // SidePanel
@@ -93,6 +96,7 @@
             // 
             // button4
             // 
+            button4.BackColor = Color.FromArgb(44, 47, 58);
             button4.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
             button4.FlatAppearance.BorderSize = 0;
             button4.FlatStyle = FlatStyle.Flat;
@@ -106,11 +110,12 @@
             button4.Size = new Size(176, 52);
             button4.TabIndex = 6;
             button4.Text = "  Reportes";
-            button4.UseVisualStyleBackColor = true;
+            button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
             // 
             // button3
             // 
+            button3.BackColor = Color.FromArgb(44, 47, 58);
             button3.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
             button3.FlatAppearance.BorderSize = 0;
             button3.FlatStyle = FlatStyle.Flat;
@@ -124,11 +129,12 @@
             button3.Size = new Size(176, 52);
             button3.TabIndex = 5;
             button3.Text = "   Empleados";
-            button3.UseVisualStyleBackColor = true;
+            button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
             // button2
             // 
+            button2.BackColor = Color.FromArgb(44, 47, 58);
             button2.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = FlatStyle.Flat;
@@ -142,11 +148,12 @@
             button2.Size = new Size(176, 52);
             button2.TabIndex = 4;
             button2.Text = "  Inventario";
-            button2.UseVisualStyleBackColor = true;
+            button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
             // button1
             // 
+            button1.BackColor = Color.FromArgb(44, 47, 58);
             button1.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
@@ -160,7 +167,7 @@
             button1.Size = new Size(176, 52);
             button1.TabIndex = 3;
             button1.Text = "  Inicio";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // button10
@@ -216,7 +223,6 @@
             interfazUsuarioActual1.Name = "interfazUsuarioActual1";
             interfazUsuarioActual1.Size = new Size(214, 59);
             interfazUsuarioActual1.TabIndex = 18;
-
             // 
             // inicioSesion1
             // 
@@ -239,21 +245,27 @@
             // 
             // interfazMateriales1
             // 
-            interfazMateriales1.Location = new Point(191, 56);
+            interfazMateriales1.Dock = DockStyle.Fill;
+            interfazMateriales1.Location = new Point(191, 59);
             interfazMateriales1.Name = "interfazMateriales1";
-            interfazMateriales1.RightToLeft = RightToLeft.Yes;
-            interfazMateriales1.Size = new Size(852, 486);
+            interfazMateriales1.RightToLeft = RightToLeft.No;
+            interfazMateriales1.Size = new Size(852, 483);
             interfazMateriales1.TabIndex = 22;
             interfazMateriales1.Load += interfazMateriales1_Load;
-            interfazMateriales1.Dock = DockStyle.Fill;
-            interfazMateriales1.RightToLeft = RightToLeft.No;
-            interfazMateriales1.TabIndex = 22;
+            // 
+            // interfazPedidos1
+            // 
+            interfazPedidos1.Location = new Point(191, 59);
+            interfazPedidos1.Name = "interfazPedidos1";
+            interfazPedidos1.Size = new Size(852, 483);
+            interfazPedidos1.TabIndex = 23;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1043, 542);
+            Controls.Add(interfazPedidos1);
             Controls.Add(interfazMateriales1);
             Controls.Add(panel3);
             Controls.Add(panel1);
@@ -291,5 +303,6 @@
         private Controles_de_Usuario.InterfazEmpleados interfazEmpleados1;
         private Controles_de_Usuario.InterfazMateriales detallesMateriales1;
         private Controles_de_Usuario.InterfazMateriales interfazMateriales1;
+        private InterfazPedidos interfazPedidos1;
     }
 }
