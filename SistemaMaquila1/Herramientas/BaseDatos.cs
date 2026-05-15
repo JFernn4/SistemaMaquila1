@@ -27,11 +27,22 @@ namespace SistemaMaquila1.Herramientas
                 string[] tablas = new string[]
 {
     //USUARIOS
-    @"CREATE TABLE IF NOT EXISTS TUsuarios (
+        @"CREATE TABLE IF NOT EXISTS TUsuarios (
         Id INTEGER PRIMARY KEY AUTOINCREMENT,
         NombreUsuario TEXT,
         Contrasena TEXT,
-        Rol TEXT
+        Rol TEXT,
+        FotoRuta TEXT   
+    )",
+
+    @"CREATE TABLE IF NOT EXISTS TRecientes (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        UsuarioId INTEGER,
+        Tipo TEXT,
+        ElementoId INTEGER,
+        Nombre TEXT,
+        FechaAcceso TEXT,
+        FOREIGN KEY (UsuarioId) REFERENCES TUsuarios(Id)
     )",
     // CLIENTES
     @"CREATE TABLE IF NOT EXISTS TClientes (
@@ -130,10 +141,11 @@ namespace SistemaMaquila1.Herramientas
             using (var conn = AbrirConexion())
             using (var cmd = conn.CreateCommand())
             {
-                cmd.CommandText = "INSERT INTO TUsuarios (NombreUsuario, Contrasena, Rol) VALUES (@nombre, @contrasena, @rol)";
+                cmd.CommandText = "INSERT INTO TUsuarios (NombreUsuario, Contrasena, Rol, FotoRuta) VALUES (@nombre, @contrasena, @rol, @fotoRuta)";
                 cmd.Parameters.AddWithValue("@nombre", usuario.NombreUsuario);
-                cmd.Parameters.AddWithValue("@contrasena", Seguridad.HashSHA256(usuario.Contrasena)); //SHA256
+                cmd.Parameters.AddWithValue("@contrasena", Seguridad.HashSHA256(usuario.Contrasena));
                 cmd.Parameters.AddWithValue("@rol", usuario.Rol);
+                cmd.Parameters.AddWithValue("@fotoRuta", (object)usuario.FotoRuta ?? DBNull.Value);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -143,10 +155,9 @@ namespace SistemaMaquila1.Herramientas
             using (var conn = AbrirConexion())
             using (var cmd = conn.CreateCommand())
             {
-                cmd.CommandText = @"SELECT Id, NombreUsuario, Rol FROM TUsuarios 
+                cmd.CommandText = @"SELECT Id, NombreUsuario, Rol, FotoRuta FROM TUsuarios 
                             WHERE NombreUsuario = @nombre 
                             AND Contrasena = @contrasena";
-
                 cmd.Parameters.AddWithValue("@nombre", nombreUsuario);
                 cmd.Parameters.AddWithValue("@contrasena", Seguridad.HashSHA256(contrasena));
 
@@ -155,13 +166,15 @@ namespace SistemaMaquila1.Herramientas
                     if (reader.Read())
                     {
                         return new Usuario(
+                            Convert.ToInt32(reader["Id"]),
                             reader["NombreUsuario"].ToString(),
-                            "", // no retornamos la contraseña
-                            reader["Rol"].ToString()
+                            "",
+                            reader["Rol"].ToString(),
+                            reader["FotoRuta"]?.ToString()
                         );
                     }
                 }
-                return null; // credenciales inválidas
+                return null;
             }
         }
         public static bool ExistenUsuarios()
@@ -178,7 +191,7 @@ namespace SistemaMaquila1.Herramientas
         {
             if (!ExistenUsuarios())
             {
-                InsertarUsuario(new Usuario("admin", "1234", "Administrador"));
+                InsertarUsuario(new Usuario(0,"admin", "1234", "Administrador",null));
             }
         }
         //CLIENTES
@@ -675,6 +688,89 @@ namespace SistemaMaquila1.Herramientas
             {
                 cmd.CommandText = "DELETE FROM TDetallePedido WHERE PedidoId = @PedidoId";
                 cmd.Parameters.AddWithValue("@PedidoId", pedidoId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // ─── RECIENTES ────────────────────────────────────────────────────────────
+
+        public static void InsertarReciente(int usuarioId, string tipo, int elementoId, string nombre)
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                // Evitar duplicados — si ya existe, actualizar la fecha
+                cmd.CommandText = @"INSERT INTO TRecientes (UsuarioId, Tipo, ElementoId, Nombre, FechaAcceso)
+                            VALUES (@UsuarioId, @Tipo, @ElementoId, @Nombre, @FechaAcceso)
+                            ON CONFLICT DO NOTHING";
+                cmd.CommandText = @"DELETE FROM TRecientes 
+                            WHERE UsuarioId = @UsuarioId AND Tipo = @Tipo AND ElementoId = @ElementoId";
+                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+                cmd.Parameters.AddWithValue("@Tipo", tipo);
+                cmd.Parameters.AddWithValue("@ElementoId", elementoId);
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = @"INSERT INTO TRecientes (UsuarioId, Tipo, ElementoId, Nombre, FechaAcceso)
+                            VALUES (@UsuarioId, @Tipo, @ElementoId, @Nombre, @FechaAcceso)";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+                cmd.Parameters.AddWithValue("@Tipo", tipo);
+                cmd.Parameters.AddWithValue("@ElementoId", elementoId);
+                cmd.Parameters.AddWithValue("@Nombre", nombre);
+                cmd.Parameters.AddWithValue("@FechaAcceso", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmd.ExecuteNonQuery();
+
+                // Mantener solo los últimos 10 por usuario
+                cmd.CommandText = @"DELETE FROM TRecientes WHERE UsuarioId = @UsuarioId
+                            AND Id NOT IN (
+                                SELECT Id FROM TRecientes 
+                                WHERE UsuarioId = @UsuarioId
+                                ORDER BY FechaAcceso DESC LIMIT 10
+                            )";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static List<ItemReciente> ObtenerRecientes(int usuarioId)
+        {
+            var lista = new List<ItemReciente>();
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"SELECT * FROM TRecientes 
+                            WHERE UsuarioId = @UsuarioId 
+                            ORDER BY FechaAcceso DESC";
+                cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lista.Add(new ItemReciente(
+                            Convert.ToInt32(reader["Id"]),
+                            reader["Tipo"].ToString(),
+                            Convert.ToInt32(reader["ElementoId"]),
+                            reader["Nombre"].ToString(),
+                            DateTime.Parse(reader["FechaAcceso"].ToString())
+                        ));
+                    }
+                }
+            }
+            return lista;
+        }
+
+        // ─── FOTO USUARIO/EMPLEADO ────────────────────────────────────────────────
+
+        public static void ActualizarFotoUsuario(int id, string fotoRuta)
+        {
+            using (var conn = AbrirConexion())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = "UPDATE TUsuarios SET FotoRuta = @FotoRuta WHERE Id = @Id";
+                cmd.Parameters.AddWithValue("@FotoRuta", (object)fotoRuta ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Id", id);
                 cmd.ExecuteNonQuery();
             }
         }

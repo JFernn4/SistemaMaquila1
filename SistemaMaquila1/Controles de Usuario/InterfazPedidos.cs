@@ -21,7 +21,7 @@ namespace SistemaMaquila1
             CargarPedidos();
         }
 
-        private void CargarPedidos()
+        public void CargarPedidos()
         {
             panel1.Controls.Clear();
             GestionListasVisuales.LimpiarCache(panel1);
@@ -35,7 +35,7 @@ namespace SistemaMaquila1
                     gestion.ObtenerPedidos(),
                     p => $"Pedido #{p.ID}",
                     p => p.ID,
-                    Properties.Resources.icons8_books_50, 
+                    p => Properties.Resources.icons8_books_50, 
                     p => AbrirPedido(p)
                 );
                 panel1.Refresh();
@@ -54,6 +54,7 @@ namespace SistemaMaquila1
 
         private void AbrirPedido(Pedido p)
         {
+            GestionRecientes.Registrar("Pedido", p.ID, $"Pedido #{p.ID}");
             _detalleAbierto?.Close();
             _detalleAbierto = new DetallesPedidos(p);
             _detalleAbierto.FormClosed += (s, ev) => CargarPedidos();

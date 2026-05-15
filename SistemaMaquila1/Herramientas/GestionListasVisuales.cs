@@ -8,13 +8,35 @@ namespace SistemaMaquila1.Herramientas
 {
     internal class GestionListasVisuales
     {
-        // Lista completa guardada para filtrar sin recargar desde BD
         private static Dictionary<Panel, object> _cacheListas = new Dictionary<Panel, object>();
 
-        /// <summary>
-        /// Carga los items en el panel con soporte de scroll automático.
-        /// Llama este método UNA vez al cargar el form.
-        /// </summary>
+        // ─── CargarItems ──────────────────────────────────────────────────
+
+        public static void CargarItems<T>(
+            Panel panel,
+            List<T> lista,
+            Func<T, string> obtenerTexto,
+            Func<T, int> obtenerId,
+            Func<T, Image> obtenerImagen,
+            Action<T> onClick = null
+        )
+        {
+            _cacheListas[panel] = new ItemsCache<T>
+            {
+                Lista = lista,
+                ObtenerTexto = obtenerTexto,
+                ObtenerID = obtenerId,
+                ObtenerImagen = obtenerImagen,
+                Imagen = null,
+                OnClick = onClick
+            };
+
+            panel.AutoScroll = true;
+            panel.AutoScrollMinSize = new Size(0, 0);
+            RenderizarItems(panel, lista, obtenerTexto, obtenerId, obtenerImagen, onClick);
+        }
+
+        // Sobrecarga con imagen estática — convierte a Func internamente
         public static void CargarItems<T>(
             Panel panel,
             List<T> lista,
@@ -24,26 +46,11 @@ namespace SistemaMaquila1.Herramientas
             Action<T> onClick = null
         )
         {
-            // Guardar lista en caché para búsquedas posteriores
-            _cacheListas[panel] = new ItemsCache<T>
-            {
-                Lista = lista,
-                ObtenerTexto = obtenerTexto,
-                ObtenerID = obtenerId,
-                Imagen = imagen,
-                OnClick = onClick
-            };
-
-            // Habilitar scroll vertical en el panel
-            panel.AutoScroll = true;
-            panel.AutoScrollMinSize = new Size(0, 0); // se recalcula al renderizar
-
-            RenderizarItems(panel, lista, obtenerTexto, obtenerId, imagen, onClick);
+            CargarItems(panel, lista, obtenerTexto, obtenerId, _ => imagen, onClick);
         }
 
-        /// <summary>
-        /// Filtra los items según el texto. Conectar al evento TextChanged del TextBox de búsqueda.
-        /// </summary>
+        // ─── Filtrar ──────────────────────────────────────────────────────
+
         public static void Filtrar<T>(Panel panel, string textoBusqueda)
         {
             if (!_cacheListas.ContainsKey(panel)) return;
@@ -58,33 +65,35 @@ namespace SistemaMaquila1.Herramientas
                         .IndexOf(textoBusqueda, StringComparison.OrdinalIgnoreCase) >= 0)
                     .ToList();
 
-            RenderizarItems(panel, listaFiltrada, cache.ObtenerTexto, cache.ObtenerID, cache.Imagen, cache.OnClick);
+            Func<T, Image> obtenerImagen = cache.ObtenerImagen ?? (_ => cache.Imagen);
+            RenderizarItems(panel, listaFiltrada, cache.ObtenerTexto, cache.ObtenerID, obtenerImagen, cache.OnClick);
         }
 
-        // ─── Renderizado interno ───────────────────────────────────────────
+        // ─── Renderizado interno ──────────────────────────────────────────
 
         private static void RenderizarItems<T>(
             Panel panel,
             List<T> lista,
             Func<T, string> obtenerTexto,
             Func<T, int> obtenerId,
-            Image imagen,
+            Func<T, Image> obtenerImagen,
             Action<T> onClick)
         {
-            panel.SuspendLayout(); // evita parpadeo mientras se agregan controles
+            panel.SuspendLayout();
             panel.Controls.Clear();
 
             int columnas = Math.Max(1, (panel.Width - 20) / 110);
-            int x = 20;
-            int y = 20;
-            int col = 0;
+            int x = 20, y = 20, col = 0;
 
             foreach (var item in lista)
             {
-                // Captura local para el closure del evento click
                 var itemLocal = item;
-
-                Button btn = CrearBoton(obtenerTexto(item), obtenerId(item), imagen, x, y);
+                Button btn = CrearBoton(
+                    obtenerTexto(item),
+                    obtenerId(item),
+                    obtenerImagen(item),
+                    x, y
+                );
 
                 if (onClick != null)
                     btn.Click += (s, e) => onClick(itemLocal);
@@ -92,24 +101,15 @@ namespace SistemaMaquila1.Herramientas
                 panel.Controls.Add(btn);
 
                 col++;
-                if (col >= columnas)
-                {
-                    col = 0;
-                    x = 20;
-                    y += 110;
-                }
-                else
-                {
-                    x += 110;
-                }
+                if (col >= columnas) { col = 0; x = 20; y += 110; }
+                else x += 110;
             }
 
-            // Ajustar el tamaño mínimo del scroll al contenido real
-            int filas = (int)Math.Ceiling((double)lista.Count / columnas);
             panel.AutoScrollMinSize = new Size(0, y + 110 + 20);
-
             panel.ResumeLayout();
         }
+
+        // ─── Helpers ──────────────────────────────────────────────────────
 
         private static Button CrearBoton(string texto, int id, Image imagen, int x, int y)
         {
@@ -133,7 +133,6 @@ namespace SistemaMaquila1.Herramientas
             btn.FlatAppearance.BorderColor = SystemColors.ButtonHighlight;
             btn.FlatAppearance.BorderSize = 0;
 
-            // Hover effect sutil
             btn.MouseEnter += (s, e) => btn.BackColor = Color.FromArgb(220, 235, 255);
             btn.MouseLeave += (s, e) => btn.BackColor = SystemColors.ButtonHighlight;
 
@@ -148,7 +147,7 @@ namespace SistemaMaquila1.Herramientas
             return texto.Substring(0, max) + "\n" + texto.Substring(max, max - 3) + "...";
         }
 
-        // ─── Clase interna para caché ──────────────────────────────────────
+        // ─── Caché ────────────────────────────────────────────────────────
 
         private class ItemsCache<T>
         {
@@ -156,8 +155,10 @@ namespace SistemaMaquila1.Herramientas
             public Func<T, string> ObtenerTexto { get; set; }
             public Func<T, int> ObtenerID { get; set; }
             public Image Imagen { get; set; }
+            public Func<T, Image> ObtenerImagen { get; set; }
             public Action<T> OnClick { get; set; }
         }
+
         public static void LimpiarCache(Panel panel)
         {
             if (_cacheListas.ContainsKey(panel))

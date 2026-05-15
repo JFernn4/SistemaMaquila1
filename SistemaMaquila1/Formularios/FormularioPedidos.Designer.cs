@@ -52,8 +52,14 @@
             label11 = new Label();
             textBox1 = new TextBox();
             comboBox2 = new ComboBox();
-            panel2 = new Panel();
+            label12 = new Label();
+            button4 = new Button();
+            button5 = new Button();
+            button6 = new Button();
+            button7 = new Button();
+            button8 = new Button();
             panel3 = new Panel();
+            panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -282,7 +288,7 @@
             // 
             // button3
             // 
-            button3.BackColor = Color.FromArgb(44, 47, 58);
+            button3.BackColor = SystemColors.HotTrack;
             button3.Cursor = Cursors.Hand;
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Century Gothic", 12F);
@@ -328,15 +334,72 @@
             comboBox2.Size = new Size(302, 29);
             comboBox2.TabIndex = 168;
             // 
-            // panel2
+            // label12
             // 
-            panel2.BackColor = Color.FromArgb(44, 47, 58);
-            panel2.Controls.Add(panel3);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(598, 10);
-            panel2.TabIndex = 169;
+            label12.AutoSize = true;
+            label12.BackColor = Color.Transparent;
+            label12.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label12.ForeColor = SystemColors.ButtonShadow;
+            label12.Location = new Point(392, 601);
+            label12.Name = "label12";
+            label12.Size = new Size(169, 21);
+            label12.TabIndex = 170;
+            label12.Text = "Apariencia de ícono";
+            // 
+            // button4
+            // 
+            button4.BackColor = SystemColors.HotTrack;
+            button4.FlatAppearance.BorderColor = SystemColors.ButtonHighlight;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.Location = new Point(412, 628);
+            button4.Name = "button4";
+            button4.Size = new Size(24, 24);
+            button4.TabIndex = 171;
+            button4.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            button5.BackColor = Color.Firebrick;
+            button5.FlatAppearance.BorderColor = SystemColors.ButtonHighlight;
+            button5.FlatStyle = FlatStyle.Flat;
+            button5.Location = new Point(441, 628);
+            button5.Name = "button5";
+            button5.Size = new Size(24, 24);
+            button5.TabIndex = 172;
+            button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            button6.BackColor = Color.SeaGreen;
+            button6.FlatAppearance.BorderColor = SystemColors.ButtonHighlight;
+            button6.FlatStyle = FlatStyle.Flat;
+            button6.Location = new Point(470, 628);
+            button6.Name = "button6";
+            button6.Size = new Size(24, 24);
+            button6.TabIndex = 173;
+            button6.UseVisualStyleBackColor = false;
+            // 
+            // button7
+            // 
+            button7.BackColor = Color.Orange;
+            button7.FlatAppearance.BorderColor = SystemColors.ButtonHighlight;
+            button7.FlatStyle = FlatStyle.Flat;
+            button7.Location = new Point(499, 628);
+            button7.Name = "button7";
+            button7.Size = new Size(24, 24);
+            button7.TabIndex = 174;
+            button7.UseVisualStyleBackColor = false;
+            // 
+            // button8
+            // 
+            button8.BackColor = Color.DarkOrchid;
+            button8.FlatAppearance.BorderColor = SystemColors.ButtonHighlight;
+            button8.FlatStyle = FlatStyle.Flat;
+            button8.Location = new Point(528, 628);
+            button8.Name = "button8";
+            button8.Size = new Size(24, 24);
+            button8.TabIndex = 175;
+            button8.UseVisualStyleBackColor = false;
             // 
             // panel3
             // 
@@ -347,12 +410,28 @@
             panel3.Size = new Size(326, 128);
             panel3.TabIndex = 14;
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(44, 47, 58);
+            panel2.Controls.Add(panel3);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(598, 10);
+            panel2.TabIndex = 169;
+            // 
             // FormularioPedidos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(598, 789);
+            Controls.Add(button8);
+            Controls.Add(button7);
+            Controls.Add(button6);
+            Controls.Add(button5);
+            Controls.Add(button4);
+            Controls.Add(label12);
             Controls.Add(panel2);
             Controls.Add(comboBox2);
             Controls.Add(textBox1);
@@ -365,7 +444,6 @@
             Controls.Add(label1);
             Controls.Add(textBox5);
             Controls.Add(textBox4);
-            Controls.Add(button1);
             Controls.Add(button2);
             Controls.Add(label8);
             Controls.Add(label7);
@@ -375,6 +453,7 @@
             Controls.Add(label3);
             Controls.Add(label10);
             Controls.Add(label2);
+            Controls.Add(button1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormularioPedidos";
             StartPosition = FormStartPosition.CenterScreen;
@@ -409,7 +488,13 @@
         protected Label label11;
         private TextBox textBox1;
         private ComboBox comboBox2;
-        private Panel panel2;
+        protected Label label12;
+        private Button button4;
+        private Button button5;
+        private Button button6;
+        private Button button7;
+        private Button button8;
         private Panel panel3;
+        private Panel panel2;
     }
 }

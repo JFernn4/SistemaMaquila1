@@ -30,7 +30,10 @@
             label2 = new Label();
             pictureBox1 = new PictureBox();
             button1 = new Button();
+            label3 = new Label();
+            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // button2
@@ -59,9 +62,9 @@
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.AutoScroll = true;
             panel1.BackColor = SystemColors.ButtonHighlight;
-            panel1.Location = new Point(20, 97);
+            panel1.Location = new Point(20, 135);
             panel1.Name = "panel1";
-            panel1.Size = new Size(811, 361);
+            panel1.Size = new Size(811, 327);
             panel1.TabIndex = 117;
             panel1.Paint += panel1_Paint;
             // 
@@ -70,7 +73,7 @@
             textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox1.ForeColor = SystemColors.InfoText;
-            textBox1.Location = new Point(20, 51);
+            textBox1.Location = new Point(20, 92);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(741, 27);
             textBox1.TabIndex = 118;
@@ -79,10 +82,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(20, 18);
+            label2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(20, 60);
             label2.Name = "label2";
-            label2.Size = new Size(69, 19);
+            label2.Size = new Size(72, 21);
             label2.TabIndex = 119;
             label2.Text = "Clientes";
             // 
@@ -92,7 +95,7 @@
             pictureBox1.BackColor = SystemColors.ButtonHighlight;
             pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = ImageLayout.Center;
-            pictureBox1.Location = new Point(729, 55);
+            pictureBox1.Location = new Point(729, 96);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(26, 17);
             pictureBox1.TabIndex = 121;
@@ -106,7 +109,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(767, 51);
+            button1.Location = new Point(767, 92);
             button1.Name = "button1";
             button1.Size = new Size(64, 27);
             button1.TabIndex = 122;
@@ -114,10 +117,35 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click_1;
             // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top;
+            label3.AutoSize = true;
+            label3.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.FromArgb(44, 47, 58);
+            label3.Location = new Point(368, 31);
+            label3.Name = "label3";
+            label3.Size = new Size(212, 19);
+            label3.TabIndex = 139;
+            label3.Text = "PRODUCCIONES ESTUARDO";
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Anchor = AnchorStyles.Top;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(270, 15);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(136, 56);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 138;
+            pictureBox2.TabStop = false;
+            // 
             // InterfazClientes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label3);
+            Controls.Add(pictureBox2);
             Controls.Add(button1);
             Controls.Add(pictureBox1);
             Controls.Add(label2);
@@ -128,6 +156,7 @@
             Size = new Size(851, 477);
             Load += InterfazClientes_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -139,5 +168,7 @@
         private Label label2;
         private PictureBox pictureBox1;
         private Button button1;
+        private Label label3;
+        private PictureBox pictureBox2;
     }
 }

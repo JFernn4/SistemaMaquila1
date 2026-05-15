@@ -21,7 +21,7 @@ namespace SistemaMaquila1.Controles_de_Usuario
             CargarMateriales();
         }
 
-        private void CargarMateriales()
+        public void CargarMateriales()
         {
             panel1.Controls.Clear();
             GestionListasVisuales.LimpiarCache(panel1);
@@ -35,7 +35,7 @@ namespace SistemaMaquila1.Controles_de_Usuario
                     gestion.ObtenerMateriales(),
                     m => m.Nombre,
                     m => m.ID,
-                    Properties.Resources.icons8_blankie_50, // 👈 cambia por el ícono que tengas
+                    m => Properties.Resources.icons8_blankie_50, 
                     m => AbrirMaterial(m)
                 );
                 panel1.Refresh();
@@ -54,6 +54,7 @@ namespace SistemaMaquila1.Controles_de_Usuario
 
         private void AbrirMaterial(Material m)
         {
+            GestionRecientes.Registrar("Material", m.ID, m.Nombre);
             _detalleAbierto?.Close();
             _detalleAbierto = new DetallesMateriales(m);
             _detalleAbierto.FormClosed += (s, ev) => CargarMateriales();

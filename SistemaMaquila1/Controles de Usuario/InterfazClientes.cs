@@ -30,10 +30,10 @@ namespace SistemaMaquila1
             };
         }
 
-        private void CargarClientes()
+        public void CargarClientes()
         {
             panel1.Controls.Clear();
-            GestionListasVisuales.LimpiarCache(panel1); 
+            GestionListasVisuales.LimpiarCache(panel1);
 
             if (gestion.ExistenClientes())
             {
@@ -50,7 +50,7 @@ namespace SistemaMaquila1
                     gestion.ObtenerClientes(),
                     c => c.Nombre,
                     c => c.ID,
-                    Properties.Resources.icons8_client_50,
+                    c => Properties.Resources.icons8_client_50,  
                     c => AbrirCliente(c)
                 );
                 panel1.Refresh();
@@ -64,6 +64,7 @@ namespace SistemaMaquila1
 
         private void AbrirCliente(Cliente c)
         {
+            GestionRecientes.Registrar("Cliente", c.ID, c.Nombre);
             _detalleAbierto?.Close();
             _detalleAbierto = new DetallesClientes(c);
             _detalleAbierto.FormClosed += (s, e) => CargarClientes(); // refresca al cerrar

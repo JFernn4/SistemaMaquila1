@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormularioUsuarios));
             panel2 = new Panel();
             panel3 = new Panel();
             label2 = new Label();
@@ -39,7 +40,9 @@
             button1 = new Button();
             button2 = new Button();
             comboBox2 = new ComboBox();
+            pictureBox1 = new PictureBox();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel2
@@ -67,7 +70,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ActiveCaptionText;
-            label2.Location = new Point(46, 60);
+            label2.Location = new Point(46, 41);
             label2.Name = "label2";
             label2.Size = new Size(158, 19);
             label2.TabIndex = 98;
@@ -79,7 +82,7 @@
             label10.BackColor = Color.Transparent;
             label10.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label10.ForeColor = SystemColors.ButtonShadow;
-            label10.Location = new Point(46, 102);
+            label10.Location = new Point(252, 103);
             label10.Name = "label10";
             label10.Size = new Size(157, 21);
             label10.TabIndex = 100;
@@ -88,19 +91,19 @@
             // textBox2
             // 
             textBox2.Font = new Font("Century Gothic", 12F);
-            textBox2.Location = new Point(46, 132);
+            textBox2.Location = new Point(252, 132);
             textBox2.Margin = new Padding(3, 2, 3, 2);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(227, 27);
+            textBox2.Size = new Size(300, 27);
             textBox2.TabIndex = 120;
             // 
             // textBox1
             // 
             textBox1.Cursor = Cursors.IBeam;
             textBox1.Font = new Font("Century Gothic", 12F);
-            textBox1.Location = new Point(325, 132);
+            textBox1.Location = new Point(252, 196);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(227, 27);
+            textBox1.Size = new Size(300, 27);
             textBox1.TabIndex = 121;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -110,7 +113,7 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ButtonShadow;
-            label3.Location = new Point(325, 102);
+            label3.Location = new Point(252, 167);
             label3.Name = "label3";
             label3.Size = new Size(103, 21);
             label3.TabIndex = 122;
@@ -122,7 +125,7 @@
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.ButtonShadow;
-            label4.Location = new Point(46, 168);
+            label4.Location = new Point(252, 231);
             label4.Name = "label4";
             label4.Size = new Size(33, 21);
             label4.TabIndex = 123;
@@ -136,7 +139,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Century Gothic", 12F);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(440, 258);
+            button1.Location = new Point(440, 343);
             button1.Name = "button1";
             button1.Size = new Size(112, 37);
             button1.TabIndex = 126;
@@ -151,7 +154,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 12F);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(308, 258);
+            button2.Location = new Point(310, 343);
             button2.Name = "button2";
             button2.Size = new Size(112, 37);
             button2.TabIndex = 125;
@@ -164,19 +167,31 @@
             comboBox2.Font = new Font("Century Gothic", 12F);
             comboBox2.FormattingEnabled = true;
             comboBox2.Items.AddRange(new object[] { "Administrador", "Usuario Regular" });
-            comboBox2.Location = new Point(46, 198);
+            comboBox2.Location = new Point(252, 260);
             comboBox2.Margin = new Padding(3, 2, 3, 2);
             comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(177, 29);
+            comboBox2.Size = new Size(300, 29);
             comboBox2.TabIndex = 128;
             comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(46, 100);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(190, 189);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 129;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // FormularioUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(598, 355);
+            ClientSize = new Size(598, 420);
+            Controls.Add(pictureBox1);
             Controls.Add(comboBox2);
             Controls.Add(button1);
             Controls.Add(button2);
@@ -193,6 +208,7 @@
             Text = "FormularioUsuarios";
             Load += FormularioUsuarios_Load;
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -210,5 +226,6 @@
         private Button button1;
         private Button button2;
         private ComboBox comboBox2;
+        private PictureBox pictureBox1;
     }
 }

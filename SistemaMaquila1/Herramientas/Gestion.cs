@@ -22,8 +22,24 @@ namespace SistemaMaquila1.Herramientas
 
         public void GuardarUsuario(Usuario usuario) => BaseDatos.InsertarUsuario(usuario);
         public void CerrarSesion() => UsuarioActual = null;
+        public void ActualizarFotoUsuario(int id, string fotoRuta) => BaseDatos.ActualizarFotoUsuario(id, fotoRuta);
     }
+    public class GestionRecientes
+    {
+        public static void Registrar(string tipo, int elementoId, string nombre)
+        {
+            var usuario = GestionUsuarios.UsuarioActual;
+            if (usuario == null) return;
+            BaseDatos.InsertarReciente(usuario.ID, tipo, elementoId, nombre);
+        }
 
+        public static List<ItemReciente> ObtenerRecientes()
+        {
+            var usuario = GestionUsuarios.UsuarioActual;
+            if (usuario == null) return new List<ItemReciente>();
+            return BaseDatos.ObtenerRecientes(usuario.ID);
+        }
+    }
     public class GestionClientes
     {
         public void GuardarCliente(Cliente cliente) => BaseDatos.InsertarCliente(cliente);

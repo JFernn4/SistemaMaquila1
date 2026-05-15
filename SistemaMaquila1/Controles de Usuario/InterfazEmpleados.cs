@@ -22,7 +22,7 @@ namespace SistemaMaquila1.Controles_de_Usuario
             CargarEmpleados();
         }
 
-        private void CargarEmpleados()
+        public void CargarEmpleados()
         {
             panel1.Controls.Clear();
             GestionListasVisuales.LimpiarCache(panel1);
@@ -37,7 +37,7 @@ namespace SistemaMaquila1.Controles_de_Usuario
                     gestion.ObtenerEmpleados(),
                     e => e.Nombre,
                     e => e.ID,
-                    Properties.Resources.icons8_employee_50, 
+                    e => Properties.Resources.icons8_employee_50, 
                     e => AbrirEmpleado(e)
                 );
 
@@ -57,6 +57,7 @@ namespace SistemaMaquila1.Controles_de_Usuario
 
         private void AbrirEmpleado(Empleado e)
         {
+            GestionRecientes.Registrar("Empleado", e.ID, e.Nombre);
             _detalleAbierto?.Close();
             _detalleAbierto = new DetallesEmpleados(e);
             _detalleAbierto.FormClosed += (s, ev) => CargarEmpleados();

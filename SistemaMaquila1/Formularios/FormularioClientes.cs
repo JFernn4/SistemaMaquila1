@@ -53,6 +53,7 @@ namespace SistemaDeImportadora
                 }
 
                 Cliente clienteCreado = Guardar();
+
                 ClienteGuardado?.Invoke(clienteCreado);
                 this.Close();
                 Toast.Mostrar("Cliente guardado", formPadre: this);

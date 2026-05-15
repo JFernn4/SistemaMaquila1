@@ -433,8 +433,8 @@
             Controls.Add(textBox1);
             Controls.Add(label10);
             Controls.Add(label2);
-            Controls.Add(button3);
             Controls.Add(button2);
+            Controls.Add(button3);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "DetallesMateriales";
             StartPosition = FormStartPosition.CenterScreen;

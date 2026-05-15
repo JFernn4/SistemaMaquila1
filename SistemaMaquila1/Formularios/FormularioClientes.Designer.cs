@@ -167,7 +167,7 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Century Gothic", 12F);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(308, 258);
+            button2.Location = new Point(310, 258);
             button2.Name = "button2";
             button2.Size = new Size(112, 37);
             button2.TabIndex = 117;

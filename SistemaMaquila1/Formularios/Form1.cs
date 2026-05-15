@@ -1,8 +1,8 @@
-using SistemaDeImportadora;
-using System.Configuration;
+    using SistemaDeImportadora;
+    using System.Configuration;
 
-namespace SistemaMaquila1
-{
+    namespace SistemaMaquila1
+    {
     public partial class Form1 : Form
     {
         private readonly Dictionary<Button, (Image inactivo, Image activo)> _iconos;
@@ -11,18 +11,20 @@ namespace SistemaMaquila1
         // Mapea cada botón con su UserControl correspondiente
         private Dictionary<Button, Control> _vistas;
 
+        private System.Windows.Forms.Timer reloj = new System.Windows.Forms.Timer();
+
         public Form1()
         {
             InitializeComponent();
 
             _iconos = new Dictionary<Button, (Image, Image)>
-            {
-                { button1,  (Properties.Resources.icono_inicio,          Properties.Resources.icono_inicio_activo) },
-                { button2,  (Properties.Resources.icono_inventario,       Properties.Resources.icono_inventario_activo) },
-                { button3,  (Properties.Resources.icono_empleado,         Properties.Resources.icono_empleados_activo) },
-                { button4,  (Properties.Resources.icono_reportes,         Properties.Resources.icono_reportes_activo) },
-                { button11, (Properties.Resources.icono_clientes,         Properties.Resources.icono_clientes_activo) },
-            };
+                {
+                    { button1,  (Properties.Resources.icono_inicio,          Properties.Resources.icono_inicio_activo) },
+                    { button2,  (Properties.Resources.icono_inventario,       Properties.Resources.icono_inventario_activo) },
+                    { button3,  (Properties.Resources.icono_empleado,         Properties.Resources.icono_empleados_activo) },
+                    { button4,  (Properties.Resources.icono_reportes,         Properties.Resources.icono_reportes_activo) },
+                    { button11, (Properties.Resources.icono_clientes,         Properties.Resources.icono_clientes_activo) },
+                };
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,16 +36,24 @@ namespace SistemaMaquila1
 
             // Mapea botones con sus vistas
             _vistas = new Dictionary<Button, Control>
+                {
+                    { button1,  interfazInicio1 },
+                    { button2,  interfazMateriales1 },              // Inventario  pendiente
+                    { button3,  interfazEmpleados1 },
+                    { button4,  interfazPedidos1 },              // Reportes  pendiente
+                    { button11, interfazClientes2 },
+                };
+
+            MostrarLogin(); // comentado temporalmente
+            reloj.Interval = 1000;
+
+            reloj.Tick += (s, ev) =>
             {
-                { button1,  interfazPedidos1 },              // Inicio  sin vista por ahora
-                { button2,  interfazMateriales1 },              // Inventario  pendiente
-                { button3,  interfazEmpleados1 },
-                { button4,  null },              // Reportes  pendiente
-                { button11, interfazClientes2 },
+                label1.Text = DateTime.Now.ToString("hh:mm");
+                label2.Text = DateTime.Now.ToString("dddd dd MMMM yyyy");
             };
 
-            // MostrarLogin(); // comentado temporalmente
-            ActivarBoton(button1); // vista por defecto al arrancar
+            reloj.Start();
         }
 
         //  Navegación 
@@ -76,16 +86,25 @@ namespace SistemaMaquila1
             if (_iconos.ContainsKey(boton))
                 boton.Image = _iconos[boton].activo;
 
-            SidePanel.Height = boton.Height;
-            SidePanel.Top = boton.Top;
 
             // Mostrar la vista correspondiente
             if (_vistas != null && _vistas.ContainsKey(boton))
                 MostrarVista(_vistas[boton]);
         }
+        public void RefrescarModuloActivo()
+        {
+            if (interfazClientes2.Visible) interfazClientes2.CargarClientes();
+            if (interfazEmpleados1.Visible) interfazEmpleados1.CargarEmpleados();
+            if (interfazMateriales1.Visible) interfazMateriales1.CargarMateriales();
+            if (interfazPedidos1.Visible) interfazPedidos1.CargarPedidos();
+        }
 
         //  Botones sidebar 
-        private void button1_Click(object sender, EventArgs e) => ActivarBoton(button1);  // Inicio
+        private void button1_Click(object sender, EventArgs e) // Inicio
+        {
+            ActivarBoton(button1);
+            interfazInicio1.CargarRecientes(); 
+        } // Inicio
         private void button2_Click(object sender, EventArgs e) => ActivarBoton(button2);  // Inventario
         private void button3_Click(object sender, EventArgs e) => ActivarBoton(button3);  // Empleados
         private void button4_Click(object sender, EventArgs e) => ActivarBoton(button4);  // Reportes
@@ -100,6 +119,7 @@ namespace SistemaMaquila1
         //  Login 
         public void MostrarLogin()
         {
+            inicioSesion1.BringToFront();
             inicioSesion1.Visible = true;
             panel1.Visible = false;
         }
@@ -109,7 +129,8 @@ namespace SistemaMaquila1
             inicioSesion1.Visible = false;
             panel1.Visible = true;
             interfazUsuarioActual1.ActualizarUI();
-            ActivarBoton(button1); // vista por defecto al iniciar sesión
+            ActivarBoton(button1);
+            interfazInicio1.CargarRecientes(); // vista por defecto al iniciar sesión
         }
 
         private void SidePanel_Paint(object sender, PaintEventArgs e) { }
@@ -138,6 +159,26 @@ namespace SistemaMaquila1
         private void interfazMateriales1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void interfazUsuarioActual1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
